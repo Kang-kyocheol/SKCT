@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SKCT 심층검사 연습</title>
+  <meta name="description" content="Excel 문항을 업로드하여 PART 1 세트형 / PART 2 단문형을 시간 제한과 함께 연습하고 응답 결과를 Excel로 저장하는 정적 웹 앱" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    :root{
+      --red:#ef1010;
+      --red-dark:#d70d0d;
+      --black:#171717;
+      --text:#222;
+      --muted:#747474;
+      --line:#dedede;
+      --soft:#f6f6f6;
+      --soft-red:#fff7f7;
+      --white:#fff;
+      --ok:#0b7a34;
+      --warn:#b45309;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#f4f4f4;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",Arial,sans-serif}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .app{max-width:1180px;margin:0 auto;min-height:100vh;background:#fff}
+    .brandbar{height:42px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:800;font-size:13px}
+    .brandbar .small{font-weight:600;opacity:.9}
+    .shell{padding:22px}
+    .upload-screen{max-width:820px;margin:45px auto 70px}
+    .upload-screen h1{font-size:32px;margin:0 0 10px}
+    .upload-screen p{color:#666;line-height:1.7}
+    .upload-card{border:1px solid var(--line);background:#fff;padding:26px;margin-top:22px}
+    .drop{border:2px dashed #bdbdbd;background:#fafafa;padding:38px 24px;text-align:center;transition:.15s}
+    .drop.drag{border-color:var(--red);background:var(--soft-red)}
+    .drop strong{display:block;font-size:18px;margin-bottom:8px}
+    .file-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:14px;padding:0 18px;background:var(--red);border:1px solid var(--red);color:#fff;font-weight:800}
+    .sample-row{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .ghost{background:#fff;border:1px solid #bbb;color:#333;min-height:40px;padding:0 14px;font-weight:700}
+    .notice{margin-top:18px;padding:14px;background:#fafafa;border-left:4px solid #555;font-size:14px;line-height:1.6}
+    .load-error{margin-top:14px;color:#b91c1c;font-weight:700;white-space:pre-wrap}
+    .exam-head{border:2px solid #222;margin:0 0 18px}
+    .head-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:16px 18px}
+    .head-main{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .count{font-size:20px;font-weight:900}
+    .range{font-size:13px;color:#686868;font-weight:700}
+    .timer{display:inline-block;background:#fff1f1;color:var(--red-dark);font-size:18px;font-weight:900;padding:4px 8px;margin-left:8px}
+    .progress-wrap{height:5px;background:#ececec}
+    .progress{height:100%;width:0;background:var(--red);transition:width .15s}
+    .head-actions{display:flex;gap:8px}
+    .nav-btn{min-width:72px;height:40px;border:1px solid #bbb;background:#fff;font-weight:800}
+    .nav-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+    .nav-btn:disabled{cursor:not-allowed;opacity:.35}
+    .part-title{font-size:16px;font-weight:900;margin:12px 0 10px;padding-left:10px;border-left:5px solid var(--red)}
+    .hint{text-align:right;color:var(--red-dark);font-size:13px;font-weight:700;margin:-28px 0 10px}
+    .set-card{border:1px solid #e2e2e2;margin-bottom:12px;background:#fff}
+    .set-title{padding:10px 14px;font-size:14px;font-weight:900;background:#fffafa;border-bottom:1px solid #ededed}
+    .grid-head,.statement-row{display:grid;grid-template-columns:minmax(340px,1fr) repeat(8,44px);align-items:stretch}
+    .grid-head{background:#1d1d1d;color:#fff;font-size:12px;font-weight:800}
+    .grid-head>div{padding:8px 4px;text-align:center}
+    .grid-head .qhead{text-align:left;padding-left:14px}
+    .statement-row{min-height:54px;border-top:1px solid #eee}
+    .statement-row:first-of-type{border-top:none}
+    .statement{padding:13px 14px;display:flex;gap:12px;align-items:flex-start;line-height:1.45;font-size:14px}
+    .letter{font-weight:900;color:#777;min-width:16px}
+    .choice-cell{display:flex;align-items:center;justify-content:center;border-left:1px solid #f0f0f0}
+    .choice-btn{width:30px;height:30px;background:#fff;border:1px solid #cfcfcf;font-size:13px;font-weight:700;color:#555}
+    .choice-btn:hover{border-color:#999}
+    .choice-btn.selected{border:2px solid var(--red);color:var(--red);background:#fff7f7;font-weight:900}
+    .fc-btn{width:32px;height:30px;background:#fff;border:1px solid #cfcfcf;font-size:12px;font-weight:900;color:#666}
+    .fc-btn.selected{border:2px solid var(--red);color:var(--red);background:#fff7f7}
+    .part2-table{border:1px solid #ddd}
+    .p2-row{display:grid;grid-template-columns:46px minmax(360px,1fr) repeat(6,46px);min-height:56px;border-top:1px solid #eee;align-items:stretch}
+    .p2-row:first-child{border-top:none}
+    .p2-no{display:flex;align-items:center;justify-content:center;color:#777;font-size:13px}
+    .p2-statement{display:flex;align-items:center;padding:11px 14px;line-height:1.45;font-size:14px}
+    .p2-cell{display:flex;align-items:center;justify-content:center}
+    .p2-btn{width:30px;height:30px;background:#fff;border:1px solid #cfcfcf;color:#555;font-weight:700}
+    .p2-btn.selected{border:2px solid var(--red);color:var(--red);background:#fff7f7}
+    .footerbar{position:sticky;bottom:0;background:rgba(255,255,255,.96);border-top:1px solid #ddd;padding:12px 0;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .status{font-size:13px;color:#666}
+    .status.bad{color:#b91c1c;font-weight:800}
+    .status.good{color:var(--ok);font-weight:800}
+    .submit-btn{height:44px;padding:0 22px;background:#171717;color:#fff;border:1px solid #171717;font-weight:900}
+    .result-screen{max-width:760px;margin:50px auto 80px;text-align:center}
+    .result-screen h2{font-size:30px;margin-bottom:8px}
+    .summary-box{margin:24px auto;border:1px solid #ddd;text-align:left}
+    .summary-box div{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid #eee}
+    .summary-box div:first-child{border-top:none}
+    .download-btn{min-height:48px;padding:0 20px;background:var(--red);border:1px solid var(--red);color:#fff;font-weight:900}
+    .secondary-btn{min-height:48px;padding:0 20px;background:#fff;border:1px solid #aaa;font-weight:800}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal{width:min(520px,100%);background:#fff;border:1px solid #333;padding:24px}
+    .modal h3{margin:0 0 10px;font-size:20px}
+    .modal p{line-height:1.6;color:#555;white-space:pre-line}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+    .modal-actions button{min-height:40px;padding:0 14px;font-weight:800;border:1px solid #aaa;background:#fff}
+    .modal-actions .danger{background:var(--red);border-color:var(--red);color:#fff}
+    @media(max-width:820px){
+      .shell{padding:12px}
+      .brandbar{padding:0 12px}
+      .head-row{grid-template-columns:1fr}
+      .head-actions{justify-content:flex-end}
+      .grid-head,.statement-row{grid-template-columns:minmax(230px,1fr) repeat(8,38px)}
+      .choice-btn{width:28px;height:30px}
+      .p2-row{grid-template-columns:36px minmax(220px,1fr) repeat(6,38px)}
+    }
+    @media(max-width:650px){
+      .exam-scroller{overflow-x:auto;padding-bottom:2px}
+      .set-card{min-width:720px}
+      .part2-table{min-width:650px}
+      .hint{text-align:left;margin:0 0 10px}
+      .footerbar{align-items:flex-start;flex-direction:column}
+      .submit-btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="brandbar">
+    <div>심층검사 연습</div>
+    <div class="small">Excel 기반 모의시험</div>
+  </div>
+
+  <main class="shell">
+    <section id="uploadScreen" class="upload-screen">
+      <h1>문항 Excel을 업로드하세요</h1>
+      <p>
+        <b>PART1_세트형</b>과 <b>PART2_단문형</b> 시트를 읽어 실제 시험처럼 진행합니다.
+        모든 데이터는 브라우저 안에서만 처리되며 서버로 전송하지 않습니다.
+      </p>
+      <div class="upload-card">
+        <div id="dropZone" class="drop">
+          <strong>.xlsx 파일을 여기에 끌어놓거나 선택하세요</strong>
+          <span>이전에 만든 SKCT 문항 입력 양식 v2와 호환됩니다.</span><br/>
+          <label class="file-btn">
+            Excel 선택
+            <input id="fileInput" type="file" accept=".xlsx,.xls" hidden />
+          </label>
+        </div>
+        <div class="sample-row">
+          <button id="resetSavedBtn" class="ghost" type="button">저장된 연습 기록 초기화</button>
+        </div>
+        <div class="notice">
+          기본 화면 구성: PART 1은 한 페이지에 3세트, PART 2는 한 페이지에 10문항입니다.
+          제한시간은 Excel의 <b>시험설정</b> 시트 값을 우선 사용하며, 값이 없으면 PART 1 45분 / PART 2 25분을 적용합니다.
+        </div>
+        <div id="loadError" class="load-error hidden"></div>
+      </div>
+    </section>
+
+    <section id="examScreen" class="hidden">
+      <div class="exam-head">
+        <div class="head-row">
+          <div>
+            <div class="head-main">
+              <span id="totalCount" class="count">0 / 0 문항</span>
+              <span id="rangeLabel" class="range"></span>
+              <span><b id="partBadge">PART1</b><span id="timer" class="timer">45:00</span></span>
+            </div>
+          </div>
+          <div class="head-actions">
+            <button id="prevBtn" class="nav-btn" type="button">이전</button>
+            <button id="saveBtn" class="nav-btn" type="button">임시저장</button>
+            <button id="nextBtn" class="nav-btn primary" type="button">다음</button>
+          </div>
+        </div>
+        <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+      </div>
+
+      <div id="part1Area">
+        <div class="part-title">PART1. 세트형</div>
+        <div class="hint">응답 1~6점 + 세트별 가까움/멂을 모두 선택해 주세요.</div>
+        <div id="part1Container" class="exam-scroller"></div>
+      </div>
+
+      <div id="part2Area" class="hidden">
+        <div class="part-title">PART2. 단문형</div>
+        <div class="hint">각 문항에 1~6점으로 응답해 주세요.</div>
+        <div class="exam-scroller">
+          <div id="part2Container" class="part2-table"></div>
+        </div>
+      </div>
+
+      <div class="footerbar">
+        <div id="pageStatus" class="status">응답을 선택해 주세요.</div>
+        <button id="submitBtn" class="submit-btn hidden" type="button">최종 제출 및 Excel 다운로드</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="result-screen hidden">
+      <h2>제출이 완료되었습니다.</h2>
+      <p>문항과 입력한 응답을 포함한 Excel 결과 파일을 저장할 수 있습니다.</p>
+      <div id="summaryBox" class="summary-box"></div>
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <button id="downloadAgainBtn" class="download-btn" type="button">결과 Excel 다시 다운로드</button>
+        <button id="restartBtn" class="secondary-btn" type="button">처음으로</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <p id="modalText"></p>
+    <div class="modal-actions">
+      <button id="modalCancel" type="button">취소</button>
+      <button id="modalOk" class="danger" type="button">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+  const PART1_PAGE_SIZE = 3;
+  const PART2_PAGE_SIZE = 10;
+  const SAVE_KEY = "skct_practice_state_v1";
+
+  const state = {
+    fileName: "",
+    part1: [],
+    part2: [],
+    settings: {},
+    answers1: {},
+    answers2: {},
+    part: 1,
+    page1: 0,
+    page2: 0,
+    remaining1: 45 * 60,
+    remaining2: 25 * 60,
+    originalTime1: 45 * 60,
+    originalTime2: 25 * 60,
+    timerId: null,
+    startedAt: null,
+    submittedAt: null,
+    lastWorkbook: null,
+    signature: ""
+  };
+
+  function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[ch]));
+  }
+
+  function normalizeHeader(s) {
+    return String(s ?? "").trim().toLowerCase().replace(/\s+/g, "_");
+  }
+
+  function rowsFromSheet(wb, name) {
+    const ws = wb.Sheets[name];
+    if (!ws) return [];
+    return XLSX.utils.sheet_to_json(ws, { header: 1, defval: "" });
+  }
+
+  function parseSettings(wb) {
+    const rows = rowsFromSheet(wb, "시험설정");
+    const out = {};
+    rows.forEach(row => {
+      const key = String(row[0] ?? "").trim();
+      if (!key || key === "setting_key" || key.includes("현재 입력 현황") || key === "항목") return;
+      out[key] = row[1];
+    });
+    return out;
+  }
+
+  function parsePart1(wb) {
+    const rows = rowsFromSheet(wb, "PART1_세트형");
+    if (!rows.length) throw new Error("PART1_세트형 시트를 찾을 수 없습니다.");
+    const headers = rows[0].map(normalizeHeader);
+    const idx = (name) => headers.indexOf(normalizeHeader(name));
+    const required = ["set_id","statement_a","statement_b","statement_c"];
+    required.forEach(h => {
+      if (idx(h) < 0) throw new Error("PART1_세트형 시트에 필수 열이 없습니다: " + h);
+    });
+
+    const get = (row, key) => {
+      const i = idx(key);
+      return i >= 0 ? row[i] : "";
+    };
+    return rows.slice(1).map((row, n) => ({
+      set_id: get(row,"set_id") || (n + 1),
+      A: String(get(row,"statement_a") || "").trim(),
+      B: String(get(row,"statement_b") || "").trim(),
+      C: String(get(row,"statement_c") || "").trim(),
+      dimension_A: get(row,"dimension_a"),
+      dimension_B: get(row,"dimension_b"),
+      dimension_C: get(row,"dimension_c"),
+      polarity_A: get(row,"polarity_a"),
+      polarity_B: get(row,"polarity_b"),
+      polarity_C: get(row,"polarity_c"),
+      active: String(get(row,"active") || "Y").trim().toUpperCase(),
+      memo: get(row,"memo")
+    })).filter(x => x.active !== "N" && x.A && x.B && x.C);
+  }
+
+  function parsePart2(wb) {
+    const rows = rowsFromSheet(wb, "PART2_단문형");
+    if (!rows.length) throw new Error("PART2_단문형 시트를 찾을 수 없습니다.");
+    const headers = rows[0].map(normalizeHeader);
+    const idx = (name) => headers.indexOf(normalizeHeader(name));
+    if (idx("statement") < 0) throw new Error("PART2_단문형 시트에 statement 열이 없습니다.");
+    const get = (row, key) => {
+      const i = idx(key);
+      return i >= 0 ? row[i] : "";
+    };
+    return rows.slice(1).map((row, n) => ({
+      item_id: get(row,"item_id") || (n + 1),
+      statement: String(get(row,"statement") || "").trim(),
+      dimension: get(row,"dimension"),
+      polarity: get(row,"polarity"),
+      active: String(get(row,"active") || "Y").trim().toUpperCase(),
+      memo: get(row,"memo")
+    })).filter(x => x.active !== "N" && x.statement);
+  }
+
+  function makeSignature(p1, p2, name) {
+    const head = [
+      name,
+      p1.length,
+      p2.length,
+      p1.slice(0,3).map(x => x.A + x.B + x.C).join("|"),
+      p2.slice(0,5).map(x => x.statement).join("|")
+    ].join("::");
+    let h = 2166136261;
+    for (let i = 0; i < head.length; i++) {
+      h ^= head.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return String(h >>> 0);
+  }
+
+  function validSeconds(value, fallbackMinutes) {
+    const n = Number(value);
+    return Number.isFinite(n) && n > 0 ? Math.round(n * 60) : fallbackMinutes * 60;
+  }
+
+  function setScreen(name) {
+    $("uploadScreen").classList.toggle("hidden", name !== "upload");
+    $("examScreen").classList.toggle("hidden", name !== "exam");
+    $("resultScreen").classList.toggle("hidden", name !== "result");
+  }
+
+  function loadSavedForSignature() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return false;
+      const saved = JSON.parse(raw);
+      if (saved.signature !== state.signature) return false;
+      state.answers1 = saved.answers1 || {};
+      state.answers2 = saved.answers2 || {};
+      state.part = saved.part || 1;
+      state.page1 = saved.page1 || 0;
+      state.page2 = saved.page2 || 0;
+      state.remaining1 = Number.isFinite(saved.remaining1) ? saved.remaining1 : state.originalTime1;
+      state.remaining2 = Number.isFinite(saved.remaining2) ? saved.remaining2 : state.originalTime2;
+      state.startedAt = saved.startedAt || new Date().toISOString();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function saveProgress(showMessage = false) {
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify({
+        signature: state.signature,
+        fileName: state.fileName,
+        answers1: state.answers1,
+        answers2: state.answers2,
+        part: state.part,
+        page1: state.page1,
+        page2: state.page2,
+        remaining1: state.remaining1,
+        remaining2: state.remaining2,
+        startedAt: state.startedAt
+      }));
+      if (showMessage) {
+        const el = $("pageStatus");
+        el.textContent = "현재 응답을 브라우저에 임시저장했습니다.";
+        el.className = "status good";
+      }
+    } catch {
+      if (showMessage) {
+        const el = $("pageStatus");
+        el.textContent = "브라우저 저장 공간 제한으로 임시저장하지 못했습니다.";
+        el.className = "status bad";
+      }
+    }
+  }
+
+  function loadFile(file) {
+    $("loadError").classList.add("hidden");
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        if (typeof XLSX === "undefined") {
+          throw new Error("Excel 처리 라이브러리를 불러오지 못했습니다. 인터넷 연결 후 다시 시도해 주세요.");
+        }
+        const wb = XLSX.read(e.target.result, { type: "array" });
+        const p1 = parsePart1(wb);
+        const p2 = parsePart2(wb);
+        const settings = parseSettings(wb);
+
+        if (!p1.length && !p2.length) throw new Error("활성화된 문항이 없습니다.");
+        state.fileName = file.name;
+        state.part1 = p1;
+        state.part2 = p2;
+        state.settings = settings;
+        state.answers1 = {};
+        state.answers2 = {};
+        state.part = p1.length ? 1 : 2;
+        state.page1 = 0;
+        state.page2 = 0;
+        state.originalTime1 = validSeconds(settings.part1_time_min, 45);
+        state.originalTime2 = validSeconds(settings.part2_time_min, 25);
+        state.remaining1 = state.originalTime1;
+        state.remaining2 = state.originalTime2;
+        state.startedAt = new Date().toISOString();
+        state.submittedAt = null;
+        state.lastWorkbook = null;
+        state.signature = makeSignature(p1, p2, file.name);
+
+        const restored = loadSavedForSignature();
+        setScreen("exam");
+        startTimer();
+        render();
+
+        if (restored) {
+          showModal(
+            "이전 연습 기록 발견",
+            "같은 문항 파일의 이전 응답을 복원했습니다.\n남은 시간과 현재 페이지도 함께 복원되었습니다.",
+            () => {}
+          );
+        }
+      } catch (err) {
+        $("loadError").textContent = "파일을 불러오지 못했습니다.\n" + (err?.message || err);
+        $("loadError").classList.remove("hidden");
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function answer1(setId) {
+    const key = String(setId);
+    if (!state.answers1[key]) {
+      state.answers1[key] = {
+        A: null, B: null, C: null,
+        closest: null, farthest: null,
+        updatedAtSec: null
+      };
+    }
+    return state.answers1[key];
+  }
+
+  function answer2(itemId) {
+    const key = String(itemId);
+    if (!state.answers2[key]) {
+      state.answers2[key] = { score: null, updatedAtSec: null };
+    }
+    return state.answers2[key];
+  }
+
+  function elapsedSec() {
+    if (!state.startedAt) return 0;
+    return Math.max(0, Math.floor((Date.now() - new Date(state.startedAt).getTime()) / 1000));
+  }
+
+  function part1Completed(set) {
+    const a = state.answers1[String(set.set_id)];
+    return !!a &&
+      [a.A,a.B,a.C].every(v => Number(v) >= 1 && Number(v) <= 6) &&
+      ["A","B","C"].includes(a.closest) &&
+      ["A","B","C"].includes(a.farthest) &&
+      a.closest !== a.farthest;
+  }
+
+  function part2Completed(item) {
+    const a = state.answers2[String(item.item_id)];
+    return !!a && Number(a.score) >= 1 && Number(a.score) <= 6;
+  }
+
+  function currentPart1Slice() {
+    const start = state.page1 * PART1_PAGE_SIZE;
+    return state.part1.slice(start, start + PART1_PAGE_SIZE);
+  }
+
+  function currentPart2Slice() {
+    const start = state.page2 * PART2_PAGE_SIZE;
+    return state.part2.slice(start, start + PART2_PAGE_SIZE);
+  }
+
+  function currentPageComplete() {
+    if (state.part === 1) return currentPart1Slice().every(part1Completed);
+    return currentPart2Slice().every(part2Completed);
+  }
+
+  function allComplete() {
+    return state.part1.every(part1Completed) && state.part2.every(part2Completed);
+  }
+
+  function completionStats() {
+    const p1Done = state.part1.filter(part1Completed).length;
+    const p2Done = state.part2.filter(part2Completed).length;
+    return { p1Done, p2Done };
+  }
+
+  function render() {
+    $("part1Area").classList.toggle("hidden", state.part !== 1);
+    $("part2Area").classList.toggle("hidden", state.part !== 2);
+
+    if (state.part === 1) renderPart1();
+    else renderPart2();
+
+    renderHeader();
+    renderFooter();
+  }
+
+  function renderHeader() {
+    const stats = completionStats();
+    const totalStatements = state.part1.length * 3 + state.part2.length;
+    const answeredStatements = stats.p1Done * 3 + stats.p2Done;
+    $("totalCount").textContent = `${answeredStatements} / ${totalStatements} 문항`;
+
+    if (state.part === 1) {
+      const start = state.page1 * PART1_PAGE_SIZE + 1;
+      const end = Math.min(state.part1.length, start + PART1_PAGE_SIZE - 1);
+      $("rangeLabel").textContent = `세트 ${start}-${end} / ${state.part1.length}`;
+      $("partBadge").textContent = "PART1";
+    } else {
+      const start = state.page2 * PART2_PAGE_SIZE + 1;
+      const end = Math.min(state.part2.length, start + PART2_PAGE_SIZE - 1);
+      $("rangeLabel").textContent = `문항 ${start}-${end} / ${state.part2.length}`;
+      $("partBadge").textContent = "PART2";
+    }
+
+    const total = totalStatements || 1;
+    $("progress").style.width = `${Math.round(answeredStatements / total * 100)}%`;
+
+    const firstPage = state.part === 1 ? state.page1 === 0 : (state.page2 === 0 && !state.part1.length);
+    $("prevBtn").disabled = firstPage;
+
+    const atEndP1 = state.part === 1 && state.page1 >= Math.ceil(state.part1.length / PART1_PAGE_SIZE) - 1;
+    const atEndP2 = state.part === 2 && state.page2 >= Math.ceil(state.part2.length / PART2_PAGE_SIZE) - 1;
+    $("nextBtn").textContent = (atEndP1 && state.part2.length) ? "PART2로" : "다음";
+    $("nextBtn").classList.toggle("hidden", atEndP2);
+    $("submitBtn").classList.toggle("hidden", !(state.part === 2 && atEndP2) && !(state.part === 1 && atEndP1 && !state.part2.length));
+    updateTimerText();
+  }
+
+  function renderFooter() {
+    const complete = currentPageComplete();
+    const el = $("pageStatus");
+    if (complete) {
+      el.textContent = "현재 페이지의 모든 응답이 완료되었습니다.";
+      el.className = "status good";
+    } else {
+      let missing = 0;
+      if (state.part === 1) missing = currentPart1Slice().filter(x => !part1Completed(x)).length;
+      else missing = currentPart2Slice().filter(x => !part2Completed(x)).length;
+      el.textContent = `현재 페이지에 미완료 ${missing}${state.part===1 ? "세트" : "문항"}가 있습니다.`;
+      el.className = "status bad";
+    }
+  }
+
+  function renderPart1() {
+    const container = $("part1Container");
+    const sets = currentPart1Slice();
+    container.innerHTML = sets.map(set => {
+      const ans = answer1(set.set_id);
+      return `
+      <div class="set-card" data-set="${esc(set.set_id)}">
+        <div class="set-title">세트 ${esc(set.set_id)}</div>
+        <div class="grid-head">
+          <div class="qhead">문항</div>
+          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+          <div>가까움</div><div>멂</div>
+        </div>
+        ${["A","B","C"].map(letter => `
+          <div class="statement-row">
+            <div class="statement"><span class="letter">${letter}</span><span>${esc(set[letter])}</span></div>
+            ${[1,2,3,4,5,6].map(score => `
+              <div class="choice-cell">
+                <button type="button" class="choice-btn ${Number(ans[letter])===score ? "selected":""}"
+                  data-kind="score1" data-set="${esc(set.set_id)}" data-letter="${letter}" data-score="${score}">${score}</button>
+              </div>`).join("")}
+            <div class="choice-cell">
+              <button type="button" class="fc-btn ${ans.closest===letter ? "selected":""}"
+                data-kind="closest" data-set="${esc(set.set_id)}" data-letter="${letter}">가</button>
+            </div>
+            <div class="choice-cell">
+              <button type="button" class="fc-btn ${ans.farthest===letter ? "selected":""}"
+                data-kind="farthest" data-set="${esc(set.set_id)}" data-letter="${letter}">멂</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll("button[data-kind]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const setId = btn.dataset.set;
+        const letter = btn.dataset.letter;
+        const kind = btn.dataset.kind;
+        const ans = answer1(setId);
+
+        if (kind === "score1") {
+          ans[letter] = Number(btn.dataset.score);
+        } else if (kind === "closest") {
+          ans.closest = letter;
+          if (ans.farthest === letter) ans.farthest = null;
+        } else if (kind === "farthest") {
+          ans.farthest = letter;
+          if (ans.closest === letter) ans.closest = null;
+        }
+        ans.updatedAtSec = elapsedSec();
+        saveProgress(false);
+        render();
+      });
+    });
+  }
+
+  function renderPart2() {
+    const container = $("part2Container");
+    const items = currentPart2Slice();
+    container.innerHTML = items.map((item, i) => {
+      const ans = answer2(item.item_id);
+      return `
+      <div class="p2-row">
+        <div class="p2-no">${esc(item.item_id)}</div>
+        <div class="p2-statement">${esc(item.statement)}</div>
+        ${[1,2,3,4,5,6].map(score => `
+          <div class="p2-cell">
+            <button type="button" class="p2-btn ${Number(ans.score)===score ? "selected":""}"
+              data-item="${esc(item.item_id)}" data-score="${score}">${score}</button>
+          </div>`).join("")}
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll("button[data-item]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const ans = answer2(btn.dataset.item);
+        ans.score = Number(btn.dataset.score);
+        ans.updatedAtSec = elapsedSec();
+        saveProgress(false);
+        render();
+      });
+    });
+  }
+
+  function moveNext() {
+    if (!currentPageComplete()) {
+      showModal("미완료 응답", "현재 페이지의 모든 응답을 완료한 뒤 다음으로 이동할 수 있습니다.", null, false);
+      return;
+    }
+
+    if (state.part === 1) {
+      const maxPage = Math.ceil(state.part1.length / PART1_PAGE_SIZE) - 1;
+      if (state.page1 < maxPage) {
+        state.page1++;
+      } else if (state.part2.length) {
+        state.part = 2;
+        state.page2 = 0;
+      }
+    } else {
+      const maxPage = Math.ceil(state.part2.length / PART2_PAGE_SIZE) - 1;
+      if (state.page2 < maxPage) state.page2++;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    saveProgress(false);
+    render();
+  }
+
+  function movePrev() {
+    if (state.part === 1) {
+      if (state.page1 > 0) state.page1--;
+    } else {
+      if (state.page2 > 0) state.page2--;
+      else if (state.part1.length) {
+        state.part = 1;
+        state.page1 = Math.max(0, Math.ceil(state.part1.length / PART1_PAGE_SIZE) - 1);
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    saveProgress(false);
+    render();
+  }
+
+  function formatTime(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+  }
+
+  function updateTimerText() {
+    $("timer").textContent = formatTime(state.part === 1 ? state.remaining1 : state.remaining2);
+  }
+
+  function startTimer() {
+    if (state.timerId) clearInterval(state.timerId);
+    state.timerId = setInterval(() => {
+      if ($("examScreen").classList.contains("hidden")) return;
+      if (state.part === 1) {
+        state.remaining1 = Math.max(0, state.remaining1 - 1);
+        if (state.remaining1 === 0) handleTimeUp(1);
+      } else {
+        state.remaining2 = Math.max(0, state.remaining2 - 1);
+        if (state.remaining2 === 0) handleTimeUp(2);
+      }
+      updateTimerText();
+      if ((state.part === 1 ? state.remaining1 : state.remaining2) % 15 === 0) saveProgress(false);
+    }, 1000);
+  }
+
+  function handleTimeUp(part) {
+    if (part === 1 && state.part === 1) {
+      if (state.part2.length) {
+        state.part = 2;
+        state.page2 = 0;
+        saveProgress(false);
+        render();
+        showModal("PART 1 시간이 종료되었습니다.", "PART 2로 자동 이동했습니다. 미응답 문항은 결과 Excel에서 빈칸으로 표시됩니다.", null, false);
+      } else {
+        finalizeSubmit(true);
+      }
+    } else if (part === 2 && state.part === 2) {
+      finalizeSubmit(true);
+    }
+  }
+
+  function showModal(title, text, onOk, showCancel = true) {
+    $("modalTitle").textContent = title;
+    $("modalText").textContent = text;
+    $("modalCancel").classList.toggle("hidden", !showCancel);
+    $("modalBackdrop").classList.remove("hidden");
+
+    const close = () => {
+      $("modalBackdrop").classList.add("hidden");
+      $("modalOk").onclick = null;
+      $("modalCancel").onclick = null;
+    };
+    $("modalCancel").onclick = close;
+    $("modalOk").onclick = () => {
+      close();
+      if (typeof onOk === "function") onOk();
+    };
+  }
+
+  function trySubmit() {
+    if (!allComplete()) {
+      const stats = completionStats();
+      const missingP1 = state.part1.length - stats.p1Done;
+      const missingP2 = state.part2.length - stats.p2Done;
+      showModal(
+        "미응답 문항이 있습니다.",
+        `PART 1 미완료: ${missingP1}세트\nPART 2 미완료: ${missingP2}문항\n\n그래도 제출하면 미응답은 빈칸으로 저장됩니다.`,
+        () => finalizeSubmit(false),
+        true
+      );
+      return;
+    }
+    showModal("최종 제출", "제출 후 문항과 응답을 포함한 Excel 파일을 생성합니다.", () => finalizeSubmit(false), true);
+  }
+
+  function fmtIso(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    const p = n => String(n).padStart(2,"0");
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  }
+
+  function buildResultWorkbook() {
+    const out = XLSX.utils.book_new();
+    const stats = completionStats();
+
+    const summary = [
+      ["항목","값"],
+      ["원본 파일", state.fileName],
+      ["시험 시작", fmtIso(state.startedAt)],
+      ["제출 시각", fmtIso(state.submittedAt)],
+      ["PART1 전체 세트", state.part1.length],
+      ["PART1 완료 세트", stats.p1Done],
+      ["PART1 사용 시간(초)", state.originalTime1 - state.remaining1],
+      ["PART1 남은 시간", formatTime(state.remaining1)],
+      ["PART2 전체 문항", state.part2.length],
+      ["PART2 완료 문항", stats.p2Done],
+      ["PART2 사용 시간(초)", state.originalTime2 - state.remaining2],
+      ["PART2 남은 시간", formatTime(state.remaining2)],
+      ["전체 완료 여부", allComplete() ? "Y" : "N"]
+    ];
+    const wsSummary = XLSX.utils.aoa_to_sheet(summary);
+    wsSummary["!cols"] = [{wch:24},{wch:38}];
+    XLSX.utils.book_append_sheet(out, wsSummary, "응답요약");
+
+    const p1Rows = state.part1.map(set => {
+      const a = state.answers1[String(set.set_id)] || {};
+      return {
+        "set_id": set.set_id,
+        "A_문항": set.A,
+        "A_점수": a.A ?? "",
+        "A_dimension": set.dimension_A ?? "",
+        "A_polarity": set.polarity_A ?? "",
+        "B_문항": set.B,
+        "B_점수": a.B ?? "",
+        "B_dimension": set.dimension_B ?? "",
+        "B_polarity": set.polarity_B ?? "",
+        "C_문항": set.C,
+        "C_점수": a.C ?? "",
+        "C_dimension": set.dimension_C ?? "",
+        "C_polarity": set.polarity_C ?? "",
+        "가장_가까움": a.closest ?? "",
+        "가장_가까운_문항": a.closest ? set[a.closest] : "",
+        "가장_멂": a.farthest ?? "",
+        "가장_먼_문항": a.farthest ? set[a.farthest] : "",
+        "응답완료": part1Completed(set) ? "Y" : "N",
+        "마지막_응답시점_초": a.updatedAtSec ?? "",
+        "memo": set.memo ?? ""
+      };
+    });
+    const ws1 = XLSX.utils.json_to_sheet(p1Rows);
+    ws1["!cols"] = [
+      {wch:9},{wch:48},{wch:9},{wch:20},{wch:13},
+      {wch:48},{wch:9},{wch:20},{wch:13},
+      {wch:48},{wch:9},{wch:20},{wch:13},
+      {wch:12},{wch:48},{wch:12},{wch:48},{wch:11},{wch:18},{wch:24}
+    ];
+    XLSX.utils.book_append_sheet(out, ws1, "PART1_응답");
+
+    const p2Rows = state.part2.map(item => {
+      const a = state.answers2[String(item.item_id)] || {};
+      return {
+        "item_id": item.item_id,
+        "문항": item.statement,
+        "점수": a.score ?? "",
+        "dimension": item.dimension ?? "",
+        "polarity": item.polarity ?? "",
+        "응답완료": part2Completed(item) ? "Y" : "N",
+        "마지막_응답시점_초": a.updatedAtSec ?? "",
+        "memo": item.memo ?? ""
+      };
+    });
+    const ws2 = XLSX.utils.json_to_sheet(p2Rows);
+    ws2["!cols"] = [{wch:10},{wch:70},{wch:9},{wch:22},{wch:13},{wch:11},{wch:18},{wch:28}];
+    XLSX.utils.book_append_sheet(out, ws2, "PART2_응답");
+
+    const settingRows = [["setting_key","value"]];
+    Object.entries(state.settings || {}).forEach(([k,v]) => settingRows.push([k,v]));
+    const wsSet = XLSX.utils.aoa_to_sheet(settingRows);
+    wsSet["!cols"] = [{wch:36},{wch:24}];
+    XLSX.utils.book_append_sheet(out, wsSet, "원본_시험설정");
+
+    return out;
+  }
+
+  function resultFileName() {
+    const d = new Date();
+    const p = n => String(n).padStart(2,"0");
+    const stamp = `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+    const base = (state.fileName || "SKCT").replace(/\.(xlsx|xls)$/i,"").replace(/[\\/:*?"<>|]/g,"_");
+    return `${base}_응답결과_${stamp}.xlsx`;
+  }
+
+  function downloadWorkbook(wb) {
+    XLSX.writeFile(wb, resultFileName(), { compression: true });
+  }
+
+  function finalizeSubmit(fromTimeout) {
+    if (state.timerId) {
+      clearInterval(state.timerId);
+      state.timerId = null;
+    }
+    state.submittedAt = new Date().toISOString();
+    state.lastWorkbook = buildResultWorkbook();
+    localStorage.removeItem(SAVE_KEY);
+    downloadWorkbook(state.lastWorkbook);
+    showResult(fromTimeout);
+  }
+
+  function showResult(fromTimeout) {
+    const stats = completionStats();
+    const rows = [
+      ["제출 사유", fromTimeout ? "제한시간 종료" : "사용자 제출"],
+      ["PART 1", `${stats.p1Done} / ${state.part1.length} 세트 완료`],
+      ["PART 2", `${stats.p2Done} / ${state.part2.length} 문항 완료`],
+      ["전체", allComplete() ? "모든 응답 완료" : "미응답 포함"]
+    ];
+    $("summaryBox").innerHTML = rows.map(([a,b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join("");
+    setScreen("result");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function restart() {
+    if (state.timerId) clearInterval(state.timerId);
+    Object.assign(state, {
+      fileName: "", part1: [], part2: [], settings: {}, answers1: {}, answers2: {},
+      part: 1, page1: 0, page2: 0, remaining1: 45*60, remaining2:25*60,
+      originalTime1:45*60, originalTime2:25*60, timerId:null,
+      startedAt:null, submittedAt:null, lastWorkbook:null, signature:""
+    });
+    $("fileInput").value = "";
+    setScreen("upload");
+  }
+
+  $("fileInput").addEventListener("change", e => {
+    const f = e.target.files && e.target.files[0];
+    if (f) loadFile(f);
+  });
+
+  const dz = $("dropZone");
+  ["dragenter","dragover"].forEach(type => dz.addEventListener(type, e => {
+    e.preventDefault(); dz.classList.add("drag");
+  }));
+  ["dragleave","drop"].forEach(type => dz.addEventListener(type, e => {
+    e.preventDefault(); dz.classList.remove("drag");
+  }));
+  dz.addEventListener("drop", e => {
+    const f = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) loadFile(f);
+  });
+
+  $("prevBtn").addEventListener("click", movePrev);
+  $("nextBtn").addEventListener("click", moveNext);
+  $("saveBtn").addEventListener("click", () => saveProgress(true));
+  $("submitBtn").addEventListener("click", trySubmit);
+  $("downloadAgainBtn").addEventListener("click", () => {
+    if (!state.lastWorkbook) state.lastWorkbook = buildResultWorkbook();
+    downloadWorkbook(state.lastWorkbook);
+  });
+  $("restartBtn").addEventListener("click", restart);
+  $("resetSavedBtn").addEventListener("click", () => {
+    localStorage.removeItem(SAVE_KEY);
+    $("loadError").textContent = "저장된 연습 기록을 초기화했습니다.";
+    $("loadError").classList.remove("hidden");
+    $("loadError").style.color = "#0b7a34";
+    setTimeout(() => {
+      $("loadError").classList.add("hidden");
+      $("loadError").style.color = "";
+    }, 1800);
+  });
+
+  window.addEventListener("beforeunload", () => {
+    if (!$("examScreen").classList.contains("hidden")) saveProgress(false);
+  });
+})();
+</script>
+</body>
+</html>
