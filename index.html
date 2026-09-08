@@ -116,7 +116,7 @@
     .status.bad{color:#b91c1c;font-weight:800}
     .status.good{color:var(--ok);font-weight:800}
     .submit-btn{height:44px;padding:0 22px;background:#171717;color:#fff;border:1px solid #171717;font-weight:900}
-    .result-screen{max-width:760px;margin:50px auto 80px;text-align:center}
+    .result-screen{max-width:1120px;margin:50px auto 80px;text-align:center}
     .result-screen h2{font-size:30px;margin-bottom:8px}
     .summary-box{margin:24px auto;border:1px solid #ddd;text-align:left}
     .summary-box div{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid #eee}
@@ -130,6 +130,65 @@
     .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
     .modal-actions button{min-height:40px;padding:0 14px;font-weight:800;border:1px solid #aaa;background:#fff}
     .modal-actions .danger{background:var(--red);border-color:var(--red);color:#fff}
+    .analysis-entry{margin:28px 0;border:1px solid #d8d8d8;text-align:left;background:#fff}
+    .analysis-entry-head{padding:18px 20px;background:#fafafa;border-bottom:1px solid #e5e5e5}
+    .analysis-entry-head h3{margin:0 0 5px;font-size:18px}
+    .analysis-entry-head p{margin:0;color:#666;font-size:13px;line-height:1.55}
+    .analysis-entry-body{padding:18px 20px}
+    .analysis-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .analysis-btn{min-height:44px;padding:0 16px;border:1px solid #171717;background:#171717;color:#fff;font-weight:900}
+    .analysis-btn.secondary{background:#fff;color:#222;border-color:#888}
+    .analysis-btn:disabled{opacity:.4;cursor:not-allowed}
+    .analysis-file-label{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid #888;background:#fff;font-weight:900;cursor:pointer}
+    .analysis-load-status{margin-top:12px;font-size:13px;color:#666;white-space:pre-wrap}
+    .analysis-load-status.good{color:#0b7a34;font-weight:800}
+    .analysis-load-status.bad{color:#b91c1c;font-weight:800}
+    .analysis-dashboard{margin-top:26px;text-align:left}
+    .analysis-tabs{display:flex;gap:0;flex-wrap:wrap;border-bottom:2px solid #222;margin-bottom:18px}
+    .analysis-tab{min-height:42px;padding:0 14px;border:1px solid #d0d0d0;border-bottom:none;background:#fafafa;font-size:13px;font-weight:900}
+    .analysis-tab.active{background:#171717;color:#fff;border-color:#171717}
+    .analysis-panel{display:none}
+    .analysis-panel.active{display:block}
+    .analysis-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .analysis-title-row h3{margin:0;font-size:21px}
+    .analysis-title-row p{margin:0;color:#777;font-size:12px}
+    .analysis-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0 18px}
+    .analysis-kpi{border:1px solid #ddd;background:#fff;padding:15px}
+    .analysis-kpi .label{font-size:12px;color:#777;font-weight:800}
+    .analysis-kpi .value{font-size:25px;font-weight:900;margin-top:5px}
+    .analysis-kpi .sub{font-size:11px;color:#888;margin-top:3px}
+    .overview-grid{display:grid;grid-template-columns:minmax(320px,.9fr) minmax(440px,1.1fr);gap:16px;align-items:stretch}
+    .analysis-card{border:1px solid #ddd;background:#fff;padding:16px}
+    .analysis-card h4{margin:0 0 10px;font-size:15px}
+    .radar-wrap{display:flex;align-items:center;justify-content:center;min-height:360px}
+    .radar-svg{width:100%;max-width:460px;height:auto;overflow:visible}
+    .analysis-table-wrap{overflow-x:auto}
+    .analysis-table{width:100%;border-collapse:collapse;font-size:12px}
+    .analysis-table th{background:#fff9e8;border:1px solid #ddd;padding:8px;text-align:center;white-space:nowrap}
+    .analysis-table td{border:1px solid #e2e2e2;padding:8px;vertical-align:middle}
+    .analysis-table td.num{text-align:center;white-space:nowrap}
+    .metric-bar{height:8px;background:#eee;min-width:90px;position:relative}
+    .metric-bar>span{display:block;height:100%;background:#f97316}
+    .status-chip{display:inline-flex;min-height:24px;align-items:center;padding:0 8px;font-size:11px;font-weight:900;border:1px solid #ccc;background:#fafafa;white-space:nowrap}
+    .status-chip.stable{background:#e7f6ea;color:#0b7a34;border-color:#b7e0c2}
+    .status-chip.mid{background:#fff2cc;color:#8a5b00;border-color:#edd487}
+    .status-chip.review{background:#fce2e2;color:#b91c1c;border-color:#efb6b6}
+    .conflict-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .conflict-card{border:1px solid #ddd;padding:14px;background:#fff}
+    .conflict-card h4{margin:0 0 12px;font-size:15px}
+    .conflict-row{display:grid;grid-template-columns:92px 1fr 40px;gap:8px;align-items:center;margin:8px 0;font-size:12px}
+    .conflict-track{height:10px;background:#eee;position:relative}
+    .conflict-track span{display:block;height:100%;background:#f97316}
+    .conflict-track.right span{background:#777}
+    .conflict-note{margin-top:10px;padding-top:9px;border-top:1px solid #eee;color:#666;font-size:12px;line-height:1.5}
+    .guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .guide-box{border:1px solid #ddd;padding:16px;background:#fff}
+    .guide-box h4{margin:0 0 10px;font-size:15px}
+    .guide-box ul,.guide-box ol{margin:0;padding-left:20px;line-height:1.7;font-size:13px}
+    .character-box{border-left:5px solid #ef1010;background:#fff9f9;padding:16px 18px;margin-bottom:14px;font-size:15px;font-weight:800;line-height:1.55}
+    .empty-state{padding:30px;border:1px dashed #bbb;background:#fafafa;color:#777;text-align:center}
+    .site-footer{border-top:1px solid #e2e2e2;padding:22px 16px;text-align:center;color:#888;font-size:12px;background:#fafafa}
+    .site-footer strong{color:#555}
     @media(max-width:820px){
       .shell{padding:12px}
       .brandbar{padding:0 12px}
@@ -154,6 +213,11 @@
       .auth-row{flex-direction:column}
       .auth-submit{width:100%}
       .template-btn{width:100%}
+      .analysis-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .overview-grid{grid-template-columns:1fr}
+      .conflict-list{grid-template-columns:1fr}
+      .guide-grid{grid-template-columns:1fr}
+      .analysis-actions>*{width:100%}
     }
   </style>
 </head>
@@ -218,7 +282,7 @@
           <div class="prompt-actions">
             <span class="prompt-note">권장: 먼저 Excel 양식을 다운로드해 ChatGPT에 함께 첨부한 뒤 사용하세요.</span>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <a id="templateDownloadBtn" class="template-btn" href="./SKCT_심층검사_연습사이트_문항입력양식.xlsx" download>Excel 양식 다운로드</a>
+              <a id="templateDownloadBtn" class="template-btn" href="./template.xlsx" download>Excel 양식 다운로드</a>
               <button id="copyQuestionPromptBtn" class="copy-btn" type="button">문항 생성 프롬프트 복사</button>
             </div>
           </div>
@@ -309,18 +373,62 @@
         <div class="prompt-guide-body">
           <textarea id="analysisPrompt" class="prompt-box" readonly aria-label="결과 분석 프롬프트"></textarea>
           <div class="prompt-actions">
-            <span class="prompt-note">이 분석은 연습용 일관성 점검입니다. 실제 SKCT의 비공개 채점식이나 합격 여부를 추정하지 않도록 구성했습니다.</span>
-            <button id="copyAnalysisPromptBtn" class="copy-btn" type="button">결과 분석 프롬프트 복사</button>
+            <span class="prompt-note">① 응답결과 Excel + ② 아래 기본양식 + ③ 이 프롬프트를 ChatGPT에 함께 전달해 분석된 XLSX를 만든 뒤, 아래 Excel 분석 영역에 업로드하세요.</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <a id="analysisTemplateDownloadBtn" class="template-btn" href="./analysis_template.xlsx" download="SKCT_응답분석_기본양식.xlsx">SKCT 응답분석 기본양식 다운로드</a>
+              <button id="copyAnalysisPromptBtn" class="copy-btn" type="button">결과 분석 프롬프트 복사</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <div class="analysis-entry">
+        <div class="analysis-entry-head">
+          <h3><span class="prompt-step">4</span>Excel 분석</h3>
+          <p>
+            ChatGPT가 <b>SKCT 응답분석 기본양식</b>에 분석 결과를 채워서 만든 XLSX를 업로드하면
+            아래에서 종합 Radar · 가치별 상세 · 충돌축 · 가까움/멂 · 문항 재확인 · 최종 연습 가이드를 보여줍니다.
+          </p>
+        </div>
+        <div class="analysis-entry-body">
+          <div class="analysis-actions">
+            <label class="analysis-file-label">
+              분석된 XLSX 업로드
+              <input id="analysisFileInput" type="file" accept=".xlsx,.xls" hidden />
+            </label>
+            <a class="template-btn" href="./analysis_template.xlsx" download="SKCT_응답분석_기본양식.xlsx">기본양식 다시 다운로드</a>
+          </div>
+          <div id="analysisLoadStatus" class="analysis-load-status">
+            원본 응답결과 Excel이 아니라, ChatGPT가 기본양식에 분석 결과를 채운 XLSX를 업로드해 주세요.
+          </div>
+        </div>
+      </div>
+
+      <div id="analysisDashboard" class="analysis-dashboard hidden">
+        <div class="analysis-tabs" role="tablist" aria-label="분석 화면">
+          <button class="analysis-tab active" data-analysis-tab="overview" type="button">종합 Radar</button>
+          <button class="analysis-tab" data-analysis-tab="dimensions" type="button">가치별 상세</button>
+          <button class="analysis-tab" data-analysis-tab="conflicts" type="button">충돌축</button>
+          <button class="analysis-tab" data-analysis-tab="forced" type="button">가까움/멂</button>
+          <button class="analysis-tab" data-analysis-tab="pairs" type="button">문항 재확인</button>
+          <button class="analysis-tab" data-analysis-tab="guide" type="button">최종 연습 가이드</button>
+        </div>
+
+        <section id="analysisPanelOverview" class="analysis-panel active"></section>
+        <section id="analysisPanelDimensions" class="analysis-panel"></section>
+        <section id="analysisPanelConflicts" class="analysis-panel"></section>
+        <section id="analysisPanelForced" class="analysis-panel"></section>
+        <section id="analysisPanelPairs" class="analysis-panel"></section>
+        <section id="analysisPanelGuide" class="analysis-panel"></section>
+      </div>
+
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px">
         <button id="downloadAgainBtn" class="download-btn" type="button">결과 Excel 다시 다운로드</button>
         <button id="restartBtn" class="secondary-btn" type="button">처음으로</button>
       </div>
     </section>
   </main>
+  <footer class="site-footer">© 2026 · <strong>made by Kyo-Cheol Kang</strong></footer>
 </div>
 
 <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -345,6 +453,110 @@
   const AUTH_KEY = "skct_practice_auth_v1";
   const PASSWORD_SHA256 = "36b744e97913fc6bd37800e2e15837b289e2e2b5feb1272ae9390e99c0c29289";
   const TEMPLATE_XLSX_URL = "./template.xlsx";
+
+  const DIMENSIONS = [
+    "자발성/주도성","높은목표/SUPEX","도전/끈기","문제해결","책임감/Ownership",
+    "창의/개선","학습/성장","협업/팀워크","사교성","유연성","분석/신중성",
+    "현실성/안정추구","수동성/안정추구","정직/윤리"
+  ];
+
+  const CORE_AXES = [
+    {key:"A", name:"높은 목표·도전", dims:["높은목표/SUPEX","도전/끈기"]},
+    {key:"B", name:"자발성·주도성", dims:["자발성/주도성"]},
+    {key:"C", name:"문제해결·분석", dims:["문제해결","분석/신중성"]},
+    {key:"D", name:"창의·개선", dims:["창의/개선"]},
+    {key:"E", name:"책임·윤리", dims:["책임감/Ownership","정직/윤리"]},
+    {key:"F", name:"협업·유연성", dims:["협업/팀워크","유연성"]}
+  ];
+
+  const CONFLICT_DEFS = [
+    {
+      name:"높은 목표 vs 현실성",
+      left:"높은 목표 유지", right:"현실적 목표 조정",
+      leftPatterns:["높은 목표","현재 능력보다","쉽게 낮추지","목표가 높","SUPEX"],
+      rightPatterns:["달성 가능","현실적","수준으로 낮추","목표를 낮추","안정적"]
+    },
+    {
+      name:"도전 vs 안정 추구",
+      left:"도전·실패 감수", right:"성공 가능성·안정",
+      leftPatterns:["도전","실패 가능","위험을 감수","새로운 시도"],
+      rightPatterns:["성공 가능","실패를 줄","안정","위험을 피"]
+    },
+    {
+      name:"자발성/주도성 vs 지시 대기",
+      left:"먼저 움직임", right:"지시 후 움직임",
+      leftPatterns:["먼저","스스로","자발","지시가 없어","별도의 지시"],
+      rightPatterns:["지시","명확해진 뒤","기다리는","기다린"]
+    },
+    {
+      name:"창의·지속 개선 vs 검증된 방식·효율",
+      left:"개선·새 방법", right:"검증된 방식·효율",
+      leftPatterns:["더 나은","개선","새로운 방법","아이디어","다른 방법"],
+      rightPatterns:["검증된","그대로","굳이","효율","기존 방식"]
+    },
+    {
+      name:"직접 문제해결 vs 전문가 활용",
+      left:"직접 분석", right:"전문가·경험자 활용",
+      leftPatterns:["직접","원인","데이터","스스로 해결","먼저 파악"],
+      rightPatterns:["경험 많은","조언","도움","전문가","물어보"]
+    },
+    {
+      name:"Ownership vs 역할 경계",
+      left:"결과까지 책임", right:"담당 범위까지",
+      leftPatterns:["끝까지","최종 결과","책임","담당 범위를 넘어","결과가 나올 때까지"],
+      rightPatterns:["내 역할을 다했","담당자","역할 범위","이후 단계","내 역할에 집중"]
+    },
+    {
+      name:"개인 업무 책임 vs 팀 전체 성과",
+      left:"내 업무 책임", right:"팀 전체 성과",
+      leftPatterns:["내 역할","내 업무","개인 성과","내가 맡은"],
+      rightPatterns:["팀 전체","팀 성과","조직의 목표","전체 결과"]
+    },
+    {
+      name:"소신 vs 관계 유지",
+      left:"근거 있는 의견", right:"관계·분위기 고려",
+      leftPatterns:["내 의견","분명히","근거가 있다","내 생각"],
+      rightPatterns:["팀 분위기","관계","양보","원만"]
+    },
+    {
+      name:"계획 준수 vs 유연성",
+      left:"초기 계획 유지", right:"상황에 맞게 변경",
+      leftPatterns:["처음 방식","계획은 한번","그대로 실행","처음 계획"],
+      rightPatterns:["계획을 수정","유연","상황에 맞게","방법을 바"]
+    },
+    {
+      name:"스스로 학습 vs 익숙한 업무 선호",
+      left:"새 분야 학습", right:"익숙한 업무 집중",
+      leftPatterns:["스스로 배","새로운 업무","학습","익숙하지 않은","새로운 분야"],
+      rightPatterns:["잘하는 업무","익숙한 업무","이미 잘하는","경험 있는 사람에게 맡"]
+    }
+  ];
+
+  const GUIDE_BY_CONFLICT = {
+    "높은 목표 vs 현실성":"목표는 높게 잡되, 어려워졌다는 이유만으로 바로 수준을 낮추지는 않는다.",
+    "도전 vs 안정 추구":"가치가 큰 시도라면 실패 가능성도 분석해 감수하되, 무모함과 도전을 구분한다.",
+    "자발성/주도성 vs 지시 대기":"지시를 기다리기보다 필요한 일을 먼저 파악하되, 영향 범위가 크면 공유한다.",
+    "창의·지속 개선 vs 검증된 방식·효율":"검증된 방식을 존중하되, 더 나은 방법의 효과가 분명하면 개선을 시도한다.",
+    "직접 문제해결 vs 전문가 활용":"먼저 원인을 직접 파악하고, 필요한 전문지식은 빠르게 활용한다.",
+    "Ownership vs 역할 경계":"내 역할을 끝내는 데 그치지 않고 결과까지 책임지되, 무리한 독단은 피한다.",
+    "개인 업무 책임 vs 팀 전체 성과":"내 업무에 책임을 지되 최종 판단 기준은 팀 전체 성과로 둔다.",
+    "소신 vs 관계 유지":"근거가 있으면 의견을 분명히 말하되, 더 좋은 근거가 나오면 유연하게 바꾼다.",
+    "계획 준수 vs 유연성":"목표는 유지하되 목표를 이루는 방법은 상황에 맞게 바꿀 수 있다.",
+    "스스로 학습 vs 익숙한 업무 선호":"필요한 영역은 직접 학습하되, 팀 성과를 위해 전문가의 강점도 활용한다."
+  };
+
+  const analysisState = {
+    sourceName:"",
+    normalized:[],
+    p1Sets:[],
+    dimensions:[],
+    coreAxes:[],
+    conflicts:[],
+    pairs:[],
+    forced:[],
+    guide:null,
+    workbook:null
+  };
 
   const state = {
     fileName: "",
@@ -496,65 +708,120 @@
   }
 
   function buildAnalysisPrompt() {
-    return `첨부한 SKCT 심층검사 연습사이트의 응답결과 Excel을 분석해줘.
+    return `첨부한 두 Excel 파일을 사용해서 SKCT 심층검사 연습 응답을 분석해줘.
+
+[첨부 파일]
+1. 이 사이트에서 시험 종료 후 다운로드한 응답결과 Excel
+   - 주요 시트: 응답요약, PART1_응답, PART2_응답, 원본_시험설정
+2. SKCT_응답분석_기본양식.xlsx
+   - 이 파일의 시트명, 표 구조, 열 이름, 레이아웃을 그대로 유지해서 분석 결과를 채워야 함
 
 중요:
 - 실제 SKCT의 비공개 채점 공식, 합격선 또는 합격 가능성을 알고 있다고 가정하지 마.
-- 이 파일에 기록된 문항, dimension, polarity, PART1의 1~7점·가까움·멂, PART2의 1~7점 응답만 근거로 '연습용 응답 일관성'을 분석해줘.
-- 평가를 좋게 보이도록 답을 조작하는 방향보다, 내가 어떤 기준에서 흔들리는지를 찾는 데 집중해줘.
+- 응답결과 Excel에 기록된 문항, dimension, polarity, PART1의 1~7점·가까움·멂, PART2의 1~7점 응답만 근거로 '연습용 응답 일관성'을 분석해.
+- 평가를 좋게 보이도록 답을 조작하는 방향보다, 어떤 기준에서 응답이 흔들리는지 찾는 데 집중해.
+- 최종 답변은 설명만 하지 말고, 반드시 첨부한 SKCT_응답분석_기본양식.xlsx에 결과를 채운 새로운 .xlsx 파일로 제공해.
+- 사이트가 업로드된 Excel의 '계산된 셀 값'을 직접 읽으므로, 분석 결과 칸을 수식만 넣어서 비워 두지 말고 계산된 최종 값을 실제 셀 값으로 채워줘.
 
-[1. 데이터 처리]
-- PART1_응답과 PART2_응답을 모두 사용해.
-- polarity가 '역방향'인 1~7점 응답은 일관성 비교용으로 8-원점수 방식으로 역코딩해.
-- PART 1의 '가장 가까움/가장 멂'은 공식 점수로 간주하지 말고, 가치 우선순위를 보는 보조지표로만 사용해.
-- 미응답은 임의로 보정하지 말고 별도로 표시해.
+[1. 데이터 처리 — 02_정규화데이터]
+- PART1_응답의 A/B/C를 각각 한 행으로 분해하고 PART2_응답도 한 행씩 추가해.
+- row_id는 P1-{set_id}-{A/B/C}, P2-{item_id} 형식으로 작성해.
+- polarity가 '역방향'인 1~7점 응답은 corrected_score = 8 - raw_score로 역코딩해.
+- PART1의 가장 가까운 옵션은 closest_flag=1, 가장 먼 옵션은 farthest_flag=1로 표시해.
+- 미응답은 임의로 보정하지 말고 빈칸으로 유지해.
+- completed, response_time_sec도 원본 결과에서 가능한 범위까지 옮겨 적어.
 
-[2. 가치별 분석]
-다음 dimension별로 응답 경향을 정리해줘:
+[2. 가치별 분석 — 03_가치별분석]
+다음 dimension별로 분석해:
 자발성/주도성, 높은목표/SUPEX, 도전/끈기, 문제해결, 책임감/Ownership, 창의/개선,
-학습/성장, 협업/팀워크, 사교성, 유연성, 분석/신중성, 현실성/안정추구, 수동성/안정추구, 정직/윤리.
+학습/성장, 협업/팀워크, 사교성, 유연성, 분석/신중성, 현실성/안정추구,
+수동성/안정추구, 정직/윤리.
 
 각 dimension에 대해:
 - 유효 문항 수
 - 정/역방향 보정 평균
 - PART1 가까움 선택 횟수
 - PART1 멂 선택 횟수
-- 전반적인 강도
-- 응답의 흔들림 정도
-를 표로 보여줘.
+- 평균절대편차(MAD)
+- 일관성 점수 = MAX(0, 100 - MAD×25)
+- 전반 강도
+- 흔들림 상태
+를 실제 값으로 채워.
 
-[3. 일관성 분석]
-특히 다음 충돌축을 찾아줘:
+[3. 핵심 6축 — 04_핵심6축]
+다음 6축을 1~7 강도와 0~100 일관성으로 채워:
+A 높은 목표·도전 = 높은목표/SUPEX + 도전/끈기
+B 자발성·주도성 = 자발성/주도성
+C 문제해결·분석 = 문제해결 + 분석/신중성
+D 창의·개선 = 창의/개선
+E 책임·윤리 = 책임감/Ownership + 정직/윤리
+F 협업·유연성 = 협업/팀워크 + 유연성
+
+[4. 충돌축 — 05_충돌축분석]
+아래 10개 충돌축을 실제 관련 문항끼리 비교해서 채워:
 - 높은 목표 vs 현실성
 - 도전 vs 안정 추구
-- 자발성/주도성 vs 지시 대기
-- 창의·지속 개선 vs 검증된 방식·효율
-- 직접 문제해결 vs 전문가 활용
+- 자발성 vs 지시 대기
+- 지속 개선 vs 효율
+- 직접 해결 vs 전문가 활용
 - Ownership vs 역할 경계
-- 개인 업무 책임 vs 팀 전체 성과
+- 개인 책임 vs 팀 성과
 - 소신 vs 관계 유지
 - 계획 준수 vs 유연성
-- 스스로 학습 vs 익숙한 업무 선호
+- 학습 확장 vs 익숙한 업무
 
-PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 비슷하거나 반대인 문항들을 직접 짝지어서 응답 차이를 보여줘.
+각 축마다 왼쪽/오른쪽 보정점수, 차이, 판정, 대표 문항/메모를 작성해.
+문항이 부족하면 억지로 채우지 말고 '데이터 부족'이라고 표시해.
 
-[4. 반드시 뽑아줄 것]
-- 가장 일관된 가치 TOP 5
-- 가장 흔들린 가치/충돌축 TOP 5
-- 서로 모순되거나 재확인이 필요한 실제 문항 번호와 문장
-- '가까움/멂' 선택과 1~7점 응답이 서로 어긋난 세트
-- 극단값(1 또는 6)이 반복되거나 갑자기 달라지는 패턴
-- PART1과 PART2에서 같은 가치에 다르게 반응한 사례
+[5. 문항쌍 검증 — 06_문항쌍검증]
+- PART1 내부, PART2 내부, PART1↔PART2 사이에서 의미가 비슷하거나 반대인 문항을 직접 짝지어.
+- 같은 dimension의 정방향↔역방향 또는 유사 반복문항을 우선해.
+- pair_id, 구간, 문항1 ID/문장, 관계, 문항2 ID/문장, 보정점수1/2, 차이, 검토 플래그를 작성해.
+- 차이 ≤1: 일관 / >1~2: 재확인 / >2: 우선검토 기준을 사용해.
 
-[5. 최종 정리]
-마지막에는 아래 형식으로 간결하게 정리해줘.
-① 현재 응답 캐릭터를 한 문장으로 요약
-② 유지하면 좋은 기준 5개
-③ 다음 연습에서 가장 먼저 고칠 기준 3개
-④ 다음에 풀 때 기억할 '나의 판단 기준'을 5~7문장으로 작성
-⑤ 필요하면 다시 확인할 문항 번호 목록
+[6. 가까움/멂 — 07_가까움멂검증]
+PART1 각 세트에 대해:
+- A/B/C 점수
+- 가까움
+- 멂
+- 최고점 옵션
+- 최저점 옵션
+- 가까움 일치
+- 멂 일치
+- 검토 사유
+를 채워.
+동점이면 최고점/최저점 옵션을 여러 개 허용하고, 가까움/멂이 그 동점 옵션 중 하나면 일치로 봐.
 
-분석할 때 단순히 '높은 점수가 좋다'고 판단하지 말고, 응답 간 의미와 일관성을 중심으로 봐줘.`;
+[7. TOP5 및 최종 요약 — 08_TOP5_최종요약]
+반드시 채워:
+- 가장 일관된 가치 TOP 5 + 근거
+- 가장 흔들린 가치/충돌축 TOP 5 + 근거
+- ① 현재 응답 캐릭터 한 문장
+- ② 유지하면 좋은 기준 5개
+- ③ 다음 연습에서 가장 먼저 고칠 기준 3개
+- ④ 다음에 풀 때 기억할 판단 기준 5~7문장
+- ⑤ 다시 확인할 문항 번호
+- 사이트용 최종 한줄 상태
+
+[8. 대시보드 — 00_분석대시보드]
+- 전체 유효문항
+- 응답 완료율
+- 평균 일관성
+- 재확인 가치 수
+- 핵심 6축의 강도/일관성/상태
+를 채워.
+사이트는 이 값을 보조적으로 읽고, 04_핵심6축 값으로 Radar를 그릴 거야.
+
+[판정 가이드]
+- 강도: 보정평균 ≥5.5 매우 강함 / ≥4.5 강함 / ≥3.5 중간 / ≥2.5 약함 / 그 외 매우 약함
+- 흔들림: MAD ≤0.6 안정 / ≤1.1 보통 / >1.1 재확인
+- 실제 SKCT 공식 점수나 합격 여부라는 표현은 사용하지 마.
+
+완료 후:
+- 기본양식의 모든 기존 시트명과 열 구조를 유지해.
+- 필요한 행은 06_문항쌍검증, 07_가까움멂검증 등에 추가해도 됨.
+- 핵심 분석 결과는 반드시 '실제 계산된 값'으로 셀에 입력해.
+- 최종적으로 사이트에 바로 업로드 가능한 .xlsx 파일을 만들어서 제공해.`;
   }
 
   async function copyTextFrom(id, buttonId) {
@@ -731,6 +998,905 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
         el.className = "status bad";
       }
     }
+  }
+
+
+  function numericScore(value) {
+    const n = Number(value);
+    return Number.isFinite(n) && n >= 1 && n <= 7 ? n : null;
+  }
+
+  function objectRowsFromSheet(wb, name) {
+    const ws = wb.Sheets[name];
+    if (!ws) return [];
+    return XLSX.utils.sheet_to_json(ws, {defval:""});
+  }
+
+  function parseResultWorkbook(wb, sourceName = "응답결과.xlsx") {
+    const p1Rows = objectRowsFromSheet(wb, "PART1_응답");
+    const p2Rows = objectRowsFromSheet(wb, "PART2_응답");
+    if (!p1Rows.length && !p2Rows.length) {
+      throw new Error("PART1_응답 또는 PART2_응답 시트를 찾을 수 없습니다. 이 사이트에서 다운로드한 응답결과 Excel인지 확인해 주세요.");
+    }
+
+    const normalized = [];
+    const p1Sets = [];
+
+    p1Rows.forEach((row, idx) => {
+      const setId = row["set_id"] || idx + 1;
+      const closest = String(row["가장_가까움"] || "").trim();
+      const farthest = String(row["가장_멂"] || "").trim();
+      const setObj = {
+        setId, closest, farthest,
+        scores:{A:numericScore(row["A_점수"]),B:numericScore(row["B_점수"]),C:numericScore(row["C_점수"])},
+        statements:{A:row["A_문항"] || "",B:row["B_문항"] || "",C:row["C_문항"] || ""},
+        memo:row["memo"] || ""
+      };
+      p1Sets.push(setObj);
+
+      ["A","B","C"].forEach(opt => {
+        const statement = String(row[`${opt}_문항`] || "").trim();
+        if (!statement) return;
+        const rawScore = numericScore(row[`${opt}_점수`]);
+        const polarity = String(row[`${opt}_polarity`] || "").trim();
+        const correctedScore = rawScore == null ? null : (polarity === "역방향" ? 8 - rawScore : rawScore);
+        normalized.push({
+          rowId:`P1-${setId}-${opt}`,
+          part:"PART1",
+          sourceId:String(setId),
+          option:opt,
+          statement,
+          dimension:String(row[`${opt}_dimension`] || "").trim(),
+          polarity,
+          rawScore,
+          correctedScore,
+          closestFlag:closest === opt ? 1 : 0,
+          farthestFlag:farthest === opt ? 1 : 0,
+          responseTimeSec:Number(row["마지막_응답시점_초"]) || null,
+          completed:String(row["응답완료"] || "").toUpperCase() === "Y" ? 1 : 0,
+          memo:String(row["memo"] || "")
+        });
+      });
+    });
+
+    p2Rows.forEach((row, idx) => {
+      const itemId = row["item_id"] || idx + 1;
+      const statement = String(row["문항"] || "").trim();
+      if (!statement) return;
+      const rawScore = numericScore(row["점수"]);
+      const polarity = String(row["polarity"] || "").trim();
+      const correctedScore = rawScore == null ? null : (polarity === "역방향" ? 8 - rawScore : rawScore);
+      normalized.push({
+        rowId:`P2-${itemId}`,
+        part:"PART2",
+        sourceId:String(itemId),
+        option:"",
+        statement,
+        dimension:String(row["dimension"] || "").trim(),
+        polarity,
+        rawScore,
+        correctedScore,
+        closestFlag:0,
+        farthestFlag:0,
+        responseTimeSec:Number(row["마지막_응답시점_초"]) || null,
+        completed:String(row["응답완료"] || "").toUpperCase() === "Y" ? 1 : 0,
+        memo:String(row["memo"] || "")
+      });
+    });
+
+    return {sourceName, normalized, p1Sets};
+  }
+
+  function mean(nums) {
+    const valid = nums.filter(Number.isFinite);
+    return valid.length ? valid.reduce((a,b)=>a+b,0) / valid.length : null;
+  }
+
+  function meanAbsDeviation(nums, avg) {
+    const valid = nums.filter(Number.isFinite);
+    if (!valid.length || !Number.isFinite(avg)) return null;
+    return valid.reduce((s,v)=>s+Math.abs(v-avg),0) / valid.length;
+  }
+
+  function strengthLabel(avg) {
+    if (!Number.isFinite(avg)) return "데이터 없음";
+    if (avg >= 5.5) return "매우 강함";
+    if (avg >= 4.5) return "강함";
+    if (avg >= 3.5) return "중간";
+    if (avg >= 2.5) return "약함";
+    return "매우 약함";
+  }
+
+  function consistencyLabel(score) {
+    if (!Number.isFinite(score)) return "데이터 없음";
+    if (score >= 85) return "안정";
+    if (score >= 70) return "보통";
+    return "재확인";
+  }
+
+  function analyzeDimensions(rows) {
+    return DIMENSIONS.map(dimension => {
+      const subset = rows.filter(r => r.dimension === dimension && Number.isFinite(r.correctedScore));
+      const scores = subset.map(r => r.correctedScore);
+      const avg = mean(scores);
+      const mad = meanAbsDeviation(scores, avg);
+      const consistency = Number.isFinite(mad) ? Math.max(0, Math.round(100 - mad * 25)) : null;
+      return {
+        dimension,
+        count:subset.length,
+        avg,
+        closest:subset.reduce((s,r)=>s+(r.closestFlag||0),0),
+        farthest:subset.reduce((s,r)=>s+(r.farthestFlag||0),0),
+        mad,
+        consistency,
+        strength:strengthLabel(avg),
+        shake:consistencyLabel(consistency),
+        part1Avg:mean(subset.filter(r=>r.part==="PART1").map(r=>r.correctedScore)),
+        part2Avg:mean(subset.filter(r=>r.part==="PART2").map(r=>r.correctedScore))
+      };
+    });
+  }
+
+  function analyzeCoreAxes(rows, dimensionStats) {
+    return CORE_AXES.map(axis => {
+      const subset = rows.filter(r => axis.dims.includes(r.dimension) && Number.isFinite(r.correctedScore));
+      const avg = mean(subset.map(r=>r.correctedScore));
+      const dimCons = dimensionStats.filter(d => axis.dims.includes(d.dimension) && Number.isFinite(d.consistency) && d.count > 0);
+      const consistency = mean(dimCons.map(d=>d.consistency));
+      return {
+        ...axis,
+        count:subset.length,
+        avg,
+        consistency,
+        status:consistencyLabel(consistency)
+      };
+    });
+  }
+
+  function includesAny(text, patterns) {
+    const t = String(text || "").toLowerCase();
+    return patterns.some(p => t.includes(String(p).toLowerCase()));
+  }
+
+  function analyzeConflicts(rows) {
+    return CONFLICT_DEFS.map(def => {
+      const leftRows = rows.filter(r => Number.isFinite(r.rawScore) && includesAny(`${r.statement} ${r.memo}`, def.leftPatterns));
+      const rightRows = rows.filter(r => Number.isFinite(r.rawScore) && includesAny(`${r.statement} ${r.memo}`, def.rightPatterns));
+      const leftScore = mean(leftRows.map(r=>r.rawScore));
+      const rightScore = mean(rightRows.map(r=>r.rawScore));
+      let status = "데이터 부족";
+      let note = "관련 문항 수가 부족해 해석을 보류합니다.";
+      if (Number.isFinite(leftScore) && Number.isFinite(rightScore)) {
+        const gap = Math.abs(leftScore - rightScore);
+        if (leftScore >= 5.5 && rightScore >= 5.5) {
+          status = "재확인";
+          note = "양쪽 기준에 모두 강하게 동의했습니다. 실제 판단 기준이 상황에 따라 바뀌는지 관련 문항을 다시 확인하세요.";
+        } else if (gap <= 0.8) {
+          status = "보통";
+          note = "양쪽 기준의 선호가 비슷합니다. 둘 중 무엇을 우선하는지 판단 기준을 정리할 필요가 있습니다.";
+        } else {
+          status = "안정";
+          note = `${leftScore > rightScore ? def.left : def.right} 쪽 선호가 상대적으로 더 분명하게 나타났습니다.`;
+        }
+      }
+      return {
+        ...def,
+        leftScore,
+        rightScore,
+        leftCount:leftRows.length,
+        rightCount:rightRows.length,
+        status,
+        note
+      };
+    });
+  }
+
+  function analyzePairs(rows) {
+    const valid = rows.filter(r => r.dimension && Number.isFinite(r.correctedScore));
+    const result = [];
+    DIMENSIONS.forEach(dim => {
+      const arr = valid.filter(r => r.dimension === dim);
+      for (let i=0;i<arr.length;i++) {
+        for (let j=i+1;j<arr.length;j++) {
+          const a = arr[i], b = arr[j];
+          const crossPart = a.part !== b.part;
+          const oppositePolarity = a.polarity && b.polarity && a.polarity !== b.polarity;
+          if (!crossPart && !oppositePolarity) continue;
+          const diff = Math.abs(a.correctedScore - b.correctedScore);
+          result.push({
+            dimension:dim,
+            relation:crossPart && oppositePolarity ? "PART1↔PART2 + 정↔역" : (crossPart ? "PART1↔PART2" : "정↔역"),
+            id1:a.rowId, statement1:a.statement, score1:a.correctedScore,
+            id2:b.rowId, statement2:b.statement, score2:b.correctedScore,
+            diff,
+            flag:diff > 2 ? "우선검토" : (diff > 1 ? "재확인" : "일관")
+          });
+        }
+      }
+    });
+    return result.sort((a,b)=>b.diff-a.diff).slice(0,40);
+  }
+
+  function analyzeForced(p1Sets) {
+    return p1Sets.map(set => {
+      const entries = ["A","B","C"]
+        .map(opt => ({opt, score:set.scores[opt]}))
+        .filter(x => Number.isFinite(x.score));
+      if (entries.length < 3) {
+        return {...set, maxOpts:[], minOpts:[], closestMatch:null, farthestMatch:null, reason:"점수 미완료"};
+      }
+      const max = Math.max(...entries.map(x=>x.score));
+      const min = Math.min(...entries.map(x=>x.score));
+      const maxOpts = entries.filter(x=>x.score===max).map(x=>x.opt);
+      const minOpts = entries.filter(x=>x.score===min).map(x=>x.opt);
+      const closestMatch = set.closest ? maxOpts.includes(set.closest) : null;
+      const farthestMatch = set.farthest ? minOpts.includes(set.farthest) : null;
+      let reason = "";
+      if (closestMatch === false && farthestMatch === false) reason = "가까움·멂 모두 점수 우선순위와 불일치";
+      else if (closestMatch === false) reason = "가까움 선택이 최고점 옵션과 불일치";
+      else if (farthestMatch === false) reason = "멂 선택이 최저점 옵션과 불일치";
+      return {...set, maxOpts, minOpts, closestMatch, farthestMatch, reason};
+    });
+  }
+
+  function buildGuide(dimensionStats, conflicts, pairs, forced) {
+    const validDims = dimensionStats.filter(d => d.count >= 2 && Number.isFinite(d.consistency));
+    const consistentTop = [...validDims]
+      .sort((a,b)=>(b.consistency-a.consistency) || ((b.avg||0)-(a.avg||0)))
+      .slice(0,5);
+    const shakyTop = [...validDims]
+      .sort((a,b)=>(a.consistency-b.consistency) || (b.count-a.count))
+      .slice(0,5);
+
+    const strengthTop = dimensionStats.filter(d=>d.count>0 && Number.isFinite(d.avg))
+      .sort((a,b)=>b.avg-a.avg).slice(0,3);
+    const conflictReview = conflicts.filter(c=>c.status==="재확인" || c.status==="보통")
+      .sort((a,b)=>{
+        const as = a.status==="재확인" ? 2 : 1;
+        const bs = b.status==="재확인" ? 2 : 1;
+        return bs-as;
+      });
+
+    const character = strengthTop.length
+      ? `${strengthTop.map(d=>d.dimension.replace("/","·")).join(", ")} 성향이 비교적 선명하며${shakyTop.length ? `, ${shakyTop.slice(0,2).map(d=>d.dimension.replace("/","·")).join(", ")} 관련 응답은 기준 재확인이 필요한` : ""} 패턴입니다.`
+      : "유효 응답이 부족해 현재 응답 캐릭터를 충분히 요약하기 어렵습니다.";
+
+    const criteria = [];
+    conflictReview.slice(0,4).forEach(c => {
+      if (GUIDE_BY_CONFLICT[c.name] && !criteria.includes(GUIDE_BY_CONFLICT[c.name])) criteria.push(GUIDE_BY_CONFLICT[c.name]);
+    });
+    [
+      "높은 점수를 만드는 것보다 같은 의미의 문항에서 같은 판단 기준을 유지한다.",
+      "점수와 PART 1의 가까움/멂 선택이 같은 우선순위를 가리키는지 확인한다.",
+      "목표는 유지하되 방법은 상황에 맞게 유연하게 바꿀 수 있다."
+    ].forEach(x => { if (criteria.length < 7 && !criteria.includes(x)) criteria.push(x); });
+
+    const recheckIds = [];
+    pairs.filter(p=>p.flag==="우선검토").slice(0,8).forEach(p => {
+      [p.id1,p.id2].forEach(id => { if (!recheckIds.includes(id)) recheckIds.push(id); });
+    });
+    forced.filter(f=>f.reason).slice(0,8).forEach(f => {
+      const id = `P1-SET-${f.setId}`;
+      if (!recheckIds.includes(id)) recheckIds.push(id);
+    });
+
+    return {
+      character,
+      consistentTop,
+      shakyTop,
+      conflictReview,
+      maintain:consistentTop.map(d=>d.dimension).slice(0,5),
+      fix:[
+        ...shakyTop.slice(0,3).map(d=>d.dimension),
+        ...conflictReview.slice(0,3).map(c=>c.name)
+      ].filter((x,i,a)=>a.indexOf(x)===i).slice(0,3),
+      criteria:criteria.slice(0,7),
+      recheckIds
+    };
+  }
+
+  function analyzeParsedResult(parsed, wb) {
+    const dimensionStats = analyzeDimensions(parsed.normalized);
+    const coreAxes = analyzeCoreAxes(parsed.normalized, dimensionStats);
+    const conflicts = analyzeConflicts(parsed.normalized);
+    const pairs = analyzePairs(parsed.normalized);
+    const forced = analyzeForced(parsed.p1Sets);
+    const guide = buildGuide(dimensionStats, conflicts, pairs, forced);
+
+    Object.assign(analysisState, {
+      sourceName:parsed.sourceName,
+      normalized:parsed.normalized,
+      p1Sets:parsed.p1Sets,
+      dimensions:dimensionStats,
+      coreAxes,
+      conflicts,
+      pairs,
+      forced,
+      guide,
+      workbook:wb
+    });
+    return analysisState;
+  }
+
+  function statusChip(status) {
+    const cls = status === "안정" || status === "일관" ? "stable" : (status === "보통" || status === "재확인" ? "mid" : "review");
+    const finalCls = status === "재확인" || status === "우선검토" ? "review" : cls;
+    return `<span class="status-chip ${finalCls}">${esc(status)}</span>`;
+  }
+
+  function fmtNum(v, digits=2) {
+    return Number.isFinite(v) ? Number(v).toFixed(digits) : "-";
+  }
+
+  function buildRadarSvg(coreAxes) {
+    const width = 440, height = 360, cx = 220, cy = 180, R = 115;
+    const axes = coreAxes.length ? coreAxes : CORE_AXES.map(x=>({...x,avg:null}));
+    const n = axes.length;
+    const angle = i => -Math.PI/2 + (Math.PI*2*i/n);
+    const point = (radius, i) => [cx + Math.cos(angle(i))*radius, cy + Math.sin(angle(i))*radius];
+
+    let svg = `<svg class="radar-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="핵심 6축 레이더 차트">`;
+    for (let level=1; level<=7; level++) {
+      const r = R * level/7;
+      const pts = axes.map((_,i)=>point(r,i).map(v=>v.toFixed(1)).join(",")).join(" ");
+      svg += `<polygon points="${pts}" fill="none" stroke="${level===7 ? "#c9c9c9":"#e7e7e7"}" stroke-width="${level===7 ? 1.4:1}"/>`;
+    }
+    axes.forEach((_,i)=>{
+      const [x,y] = point(R,i);
+      svg += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#ddd" stroke-width="1"/>`;
+    });
+    const dataPts = axes.map((a,i)=>{
+      const score = Number.isFinite(a.avg) ? Math.max(0,Math.min(7,a.avg)) : 0;
+      return point(R*score/7,i).map(v=>v.toFixed(1)).join(",");
+    }).join(" ");
+    svg += `<polygon points="${dataPts}" fill="rgba(249,115,22,.18)" stroke="#f97316" stroke-width="2.4"/>`;
+    axes.forEach((a,i)=>{
+      const score = Number.isFinite(a.avg) ? Math.max(0,Math.min(7,a.avg)) : 0;
+      const [x,y] = point(R*score/7,i);
+      svg += `<circle cx="${x}" cy="${y}" r="4" fill="#fff" stroke="#f97316" stroke-width="2"/>`;
+      const [lx,ly] = point(R+35,i);
+      const anchor = lx < cx-10 ? "end" : (lx > cx+10 ? "start" : "middle");
+      const dy = ly < cy-40 ? -3 : (ly > cy+40 ? 12 : 4);
+      svg += `<text x="${lx}" y="${ly+dy}" text-anchor="${anchor}" font-size="12" font-weight="800" fill="#333">${esc(a.key)} ${esc(a.name)}</text>`;
+      if (Number.isFinite(a.avg)) {
+        svg += `<text x="${lx}" y="${ly+dy+15}" text-anchor="${anchor}" font-size="11" fill="#777">${a.avg.toFixed(2)}</text>`;
+      }
+    });
+    svg += `<text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="11" fill="#999">1–7</text></svg>`;
+    return svg;
+  }
+
+  function renderOverview(a) {
+    const inferredTotal = a.normalized.length || a.dimensions.reduce((s,d)=>s+(Number(d.count)||0),0);
+    const inferredValid = a.normalized.length
+      ? a.normalized.filter(r=>Number.isFinite(r.rawScore)).length
+      : a.dimensions.reduce((s,d)=>s+(Number(d.count)||0),0);
+    const total = inferredTotal;
+    const valid = Number.isFinite(a.summary?.validCount) ? a.summary.validCount : inferredValid;
+    let completion = total ? Math.round(valid/total*100) : 0;
+    if (Number.isFinite(a.summary?.completionRate)) {
+      completion = a.summary.completionRate <= 1 ? Math.round(a.summary.completionRate*100) : Math.round(a.summary.completionRate);
+    }
+    const validCons = a.dimensions.filter(d=>d.count>=2 && Number.isFinite(d.consistency));
+    const inferredConsistency = validCons.length ? Math.round(mean(validCons.map(d=>d.consistency))) : null;
+    const avgConsistency = Number.isFinite(a.summary?.avgConsistency) ? Math.round(a.summary.avgConsistency) : inferredConsistency;
+    const reviewCount = Number.isFinite(a.summary?.reviewCount) ? Math.round(a.summary.reviewCount) : validCons.filter(d=>d.shake==="재확인").length;
+
+    $("analysisPanelOverview").innerHTML = `
+      <div class="analysis-title-row">
+        <div><h3>종합 Radar</h3><p>${esc(a.sourceName)} · 연습용 응답 일관성 분석</p></div>
+        <div>${avgConsistency==null ? "" : statusChip(consistencyLabel(avgConsistency))}</div>
+      </div>
+      <div class="analysis-kpis">
+        <div class="analysis-kpi"><div class="label">유효 응답</div><div class="value">${valid}</div><div class="sub">전체 ${total}문장</div></div>
+        <div class="analysis-kpi"><div class="label">응답 완료율</div><div class="value">${completion}%</div><div class="sub">미응답은 보정하지 않음</div></div>
+        <div class="analysis-kpi"><div class="label">평균 일관성</div><div class="value">${avgConsistency==null?"-":avgConsistency}</div><div class="sub">공식 SKCT 점수가 아님</div></div>
+        <div class="analysis-kpi"><div class="label">재확인 가치</div><div class="value">${reviewCount}</div><div class="sub">문항 2개 이상 가치 기준</div></div>
+      </div>
+      <div class="overview-grid">
+        <div class="analysis-card">
+          <h4>핵심 6축 강도</h4>
+          <div class="radar-wrap">${buildRadarSvg(a.coreAxes)}</div>
+        </div>
+        <div class="analysis-card">
+          <h4>6축 결과</h4>
+          <div class="analysis-table-wrap">
+            <table class="analysis-table">
+              <thead><tr><th>축</th><th>가치</th><th>유효문항</th><th>보정평균</th><th>일관성</th><th>상태</th></tr></thead>
+              <tbody>
+                ${a.coreAxes.map(x=>`<tr>
+                  <td class="num"><b>${esc(x.key)}</b></td>
+                  <td>${esc(x.name)}</td>
+                  <td class="num">${x.count}</td>
+                  <td class="num">${fmtNum(x.avg)}</td>
+                  <td class="num">${Number.isFinite(x.consistency)?Math.round(x.consistency):"-"}</td>
+                  <td class="num">${statusChip(x.status)}</td>
+                </tr>`).join("")}
+              </tbody>
+            </table>
+          </div>
+          <div class="notice" style="margin-top:12px">강도는 1~7점 응답을 정/역방향 보정한 평균입니다. 일관성은 같은 가치 문항 간 응답 흔들림을 연습용으로 환산한 값이며 실제 SKCT 공식 점수가 아닙니다.</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderDimensions(a) {
+    $("analysisPanelDimensions").innerHTML = `
+      <div class="analysis-title-row"><div><h3>가치별 상세</h3><p>dimension별 정/역방향 보정 평균과 흔들림</p></div></div>
+      <div class="analysis-card">
+        <div class="analysis-table-wrap">
+          <table class="analysis-table">
+            <thead><tr>
+              <th>가치</th><th>문항수</th><th>보정평균</th><th>강도</th><th>가까움</th><th>멂</th><th>MAD</th><th>일관성</th><th>상태</th><th>PART1</th><th>PART2</th>
+            </tr></thead>
+            <tbody>
+              ${a.dimensions.map(d=>`<tr>
+                <td><b>${esc(d.dimension)}</b></td>
+                <td class="num">${d.count}</td>
+                <td class="num">${fmtNum(d.avg)}</td>
+                <td><div class="metric-bar"><span style="width:${Number.isFinite(d.avg)?Math.max(0,Math.min(100,d.avg/7*100)):0}%"></span></div><small>${esc(d.strength)}</small></td>
+                <td class="num">${d.closest}</td>
+                <td class="num">${d.farthest}</td>
+                <td class="num">${fmtNum(d.mad)}</td>
+                <td class="num">${Number.isFinite(d.consistency)?d.consistency:"-"}</td>
+                <td class="num">${statusChip(d.shake)}</td>
+                <td class="num">${fmtNum(d.part1Avg)}</td>
+                <td class="num">${fmtNum(d.part2Avg)}</td>
+              </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderConflicts(a) {
+    $("analysisPanelConflicts").innerHTML = `
+      <div class="analysis-title-row"><div><h3>충돌축 분석</h3><p>양쪽 기준에 대한 실제 문장 응답을 키워드 기반으로 비교</p></div></div>
+      <div class="conflict-list">
+        ${a.conflicts.map(c=>`
+          <div class="conflict-card">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+              <h4>${esc(c.name)}</h4>${statusChip(c.status)}
+            </div>
+            <div class="conflict-row"><span>${esc(c.left)}</span><div class="conflict-track"><span style="width:${Number.isFinite(c.leftScore)?c.leftScore/7*100:0}%"></span></div><b>${fmtNum(c.leftScore,1)}</b></div>
+            <div class="conflict-row"><span>${esc(c.right)}</span><div class="conflict-track right"><span style="width:${Number.isFinite(c.rightScore)?c.rightScore/7*100:0}%"></span></div><b>${fmtNum(c.rightScore,1)}</b></div>
+            ${(c.leftCount || c.rightCount) ? `<div style="font-size:11px;color:#888">관련 문항: ${c.leftCount} / ${c.rightCount}</div>` : ""}
+            <div class="conflict-note">${esc(c.note)}</div>
+          </div>
+        `).join("")}
+      </div>
+      <div class="notice">이 화면은 문장·memo의 키워드를 이용해 양쪽 판단 기준을 보조적으로 비교합니다. 직접적인 모순 여부는 ‘문항 재확인’ 탭의 동일 dimension 정/역문항 비교를 함께 보세요.</div>
+    `;
+  }
+
+  function renderForced(a) {
+    const rows = a.forced;
+    const mismatch = rows.filter(r=>r.reason);
+    $("analysisPanelForced").innerHTML = `
+      <div class="analysis-title-row"><div><h3>가까움 / 멂 검증</h3><p>PART1의 1~7점과 forced-choice 선택 정합성</p></div><div>${mismatch.length ? statusChip("재확인") : statusChip("안정")}</div></div>
+      <div class="analysis-card">
+        <div class="analysis-table-wrap">
+          <table class="analysis-table">
+            <thead><tr><th>세트</th><th>A</th><th>B</th><th>C</th><th>가까움</th><th>멂</th><th>최고점</th><th>최저점</th><th>가까움 일치</th><th>멂 일치</th><th>검토 사유</th></tr></thead>
+            <tbody>
+              ${rows.map(r=>`<tr>
+                <td class="num">${esc(r.setId)}</td>
+                <td class="num">${r.scores.A??"-"}</td><td class="num">${r.scores.B??"-"}</td><td class="num">${r.scores.C??"-"}</td>
+                <td class="num">${esc(r.closest||"-")}</td><td class="num">${esc(r.farthest||"-")}</td>
+                <td class="num">${r.maxOpts.length?esc(r.maxOpts.join("/")):"-"}</td><td class="num">${r.minOpts.length?esc(r.minOpts.join("/")):"-"}</td>
+                <td class="num">${r.closestMatch==null?"-":(r.closestMatch?"Y":"N")}</td>
+                <td class="num">${r.farthestMatch==null?"-":(r.farthestMatch?"Y":"N")}</td>
+                <td>${r.reason ? `<b style="color:#b91c1c">${esc(r.reason)}</b>` : "일치"}</td>
+              </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPairs(a) {
+    const rows = a.pairs;
+    const extremes = a.normalized.filter(r=>r.rawScore===1 || r.rawScore===7);
+    $("analysisPanelPairs").innerHTML = `
+      <div class="analysis-title-row"><div><h3>문항 재확인</h3><p>ChatGPT가 분석 양식에 정리한 PART1↔PART2 및 정↔역문항 비교</p></div><div>극단응답 ${extremes.length}개</div></div>
+      ${rows.length ? `<div class="analysis-card"><div class="analysis-table-wrap">
+        <table class="analysis-table">
+          <thead><tr><th>가치</th><th>관계</th><th>문항1</th><th>보정점수</th><th>문항2</th><th>보정점수</th><th>차이</th><th>상태</th></tr></thead>
+          <tbody>
+            ${rows.map(p=>`<tr>
+              <td>${esc(p.dimension)}</td><td class="num">${esc(p.relation)}</td>
+              <td><b>${esc(p.id1)}</b><br>${esc(p.statement1)}</td><td class="num">${fmtNum(p.score1,1)}</td>
+              <td><b>${esc(p.id2)}</b><br>${esc(p.statement2)}</td><td class="num">${fmtNum(p.score2,1)}</td>
+              <td class="num"><b>${fmtNum(p.diff,1)}</b></td><td class="num">${statusChip(p.flag)}</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div></div>` : `<div class="empty-state">비교 가능한 정/역문항 또는 PART1↔PART2 동일 가치 문항이 부족합니다.</div>`}
+      <div class="notice">보정점수 차이가 1 이하이면 대체로 일관, 1 초과~2 이하는 재확인, 2 초과는 우선검토로 표시합니다. 이는 연습용 기준입니다.</div>
+    `;
+  }
+
+  function renderGuide(a) {
+    const g = a.guide;
+    $("analysisPanelGuide").innerHTML = `
+      <div class="analysis-title-row"><div><h3>최종 연습 가이드</h3><p>이번 응답에서 유지할 기준과 다음 연습 우선순위</p></div></div>
+      <div class="character-box">${esc(g.character)}</div>
+      <div class="guide-grid">
+        <div class="guide-box"><h4>① 유지하면 좋은 기준 TOP 5</h4><ol>${g.maintain.length ? g.maintain.map(x=>`<li>${esc(x)}</li>`).join("") : "<li>문항 수가 부족합니다.</li>"}</ol></div>
+        <div class="guide-box"><h4>② 다음 연습에서 먼저 고칠 기준 TOP 3</h4><ol>${g.fix.length ? g.fix.map(x=>`<li>${esc(x)}</li>`).join("") : "<li>뚜렷한 재확인 항목이 없습니다.</li>"}</ol></div>
+        <div class="guide-box"><h4>③ 다음에 풀 때 기억할 판단 기준</h4><ul>${g.criteria.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="guide-box"><h4>④ 다시 확인할 문항</h4>${g.recheckIds.length ? `<ul>${g.recheckIds.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>` : "<p style='font-size:13px;color:#666'>우선검토 문항이 없습니다.</p>"}</div>
+      </div>
+      <div class="notice"><b>주의:</b> 이 가이드는 실제 SKCT 합격 가능성·공식 인재상 점수를 산출하지 않습니다. 같은 의미의 문항에서 판단 기준이 얼마나 안정적으로 유지되는지 연습하기 위한 화면입니다.</div>
+    `;
+  }
+
+  function renderAnalysisDashboard(a) {
+    renderOverview(a);
+    renderDimensions(a);
+    renderConflicts(a);
+    renderForced(a);
+    renderPairs(a);
+    renderGuide(a);
+    $("analysisDashboard").classList.remove("hidden");
+  }
+
+  function setAnalysisStatus(text, kind="") {
+    const el = $("analysisLoadStatus");
+    if (!el) return;
+    el.textContent = text;
+    el.className = `analysis-load-status ${kind}`.trim();
+  }
+
+  function parseCompletedAnalysisWorkbook(wb, sourceName = "SKCT_응답분석.xlsx") {
+    const requiredSheets = [
+      "00_분석대시보드","02_정규화데이터","03_가치별분석","04_핵심6축",
+      "05_충돌축분석","06_문항쌍검증","07_가까움멂검증","08_TOP5_최종요약"
+    ];
+    const missing = requiredSheets.filter(name => !wb.Sheets[name]);
+    if (missing.length) {
+      throw new Error(
+        `응답분석 양식의 필수 시트가 없습니다: ${missing.join(", ")}\n\n` +
+        `이 칸에는 원본 PART1_응답/PART2_응답 Excel이 아니라, ChatGPT가 'SKCT 응답분석 기본양식'에 분석 결과를 채워서 만든 XLSX를 업로드해야 합니다.`
+      );
+    }
+
+    const normRows = objectRowsFromSheet(wb, "02_정규화데이터")
+      .filter(r => String(r["row_id"] || "").trim());
+    const normalized = normRows.map(r => ({
+      rowId:String(r["row_id"] || ""),
+      part:String(r["part"] || ""),
+      sourceId:String(r["source_id"] || ""),
+      option:String(r["option"] || ""),
+      statement:String(r["statement"] || ""),
+      dimension:String(r["dimension"] || ""),
+      polarity:String(r["polarity"] || ""),
+      rawScore:numericScore(r["raw_score"]),
+      correctedScore:Number.isFinite(Number(r["corrected_score"])) ? Number(r["corrected_score"]) : null,
+      closestFlag:Number(r["closest_flag"]) || 0,
+      farthestFlag:Number(r["farthest_flag"]) || 0,
+      responseTimeSec:Number.isFinite(Number(r["response_time_sec"])) ? Number(r["response_time_sec"]) : null,
+      completed:Number(r["completed"]) || 0,
+      memo:String(r["memo"] || "")
+    }));
+
+    const dimRows = objectRowsFromSheet(wb, "03_가치별분석")
+      .filter(r => String(r["dimension"] || "").trim());
+    const dimensions = dimRows.map(r => {
+      const dimension = String(r["dimension"] || "");
+      const subset = normalized.filter(x => x.dimension === dimension && Number.isFinite(x.correctedScore));
+      return {
+        dimension,
+        count:Number(r["유효 문항 수"]) || subset.length || 0,
+        avg:Number.isFinite(Number(r["보정 평균"])) ? Number(r["보정 평균"]) : mean(subset.map(x=>x.correctedScore)),
+        closest:Number(r["가까움 횟수"]) || subset.reduce((s,x)=>s+(x.closestFlag||0),0),
+        farthest:Number(r["멂 횟수"]) || subset.reduce((s,x)=>s+(x.farthestFlag||0),0),
+        mad:Number.isFinite(Number(r["평균절대편차"])) ? Number(r["평균절대편차"]) : null,
+        consistency:Number.isFinite(Number(r["일관성 점수"])) ? Number(r["일관성 점수"]) : null,
+        strength:String(r["전반 강도"] || ""),
+        shake:String(r["흔들림"] || ""),
+        part1Avg:mean(subset.filter(x=>x.part==="PART1").map(x=>x.correctedScore)),
+        part2Avg:mean(subset.filter(x=>x.part==="PART2").map(x=>x.correctedScore))
+      };
+    });
+
+    dimensions.forEach(d => {
+      if (!Number.isFinite(d.mad) && d.count > 0) {
+        const subset = normalized.filter(x => x.dimension===d.dimension && Number.isFinite(x.correctedScore));
+        d.mad = meanAbsDeviation(subset.map(x=>x.correctedScore), d.avg);
+      }
+      if (!Number.isFinite(d.consistency) && Number.isFinite(d.mad)) {
+        d.consistency = Math.max(0, Math.round(100 - d.mad * 25));
+      }
+      if (!d.strength) d.strength = strengthLabel(d.avg);
+      if (!d.shake) d.shake = consistencyLabel(d.consistency);
+    });
+
+    const coreRows = objectRowsFromSheet(wb, "04_핵심6축")
+      .filter(r => String(r["축"] || "").trim());
+    const coreAxes = coreRows.map(r => {
+      const key = String(r["축"] || "");
+      const name = String(r["표시명"] || "");
+      const dimsText = String(r["포함 dimension"] || "");
+      const dims = dimsText.split("+").map(x=>x.trim()).filter(Boolean);
+      const avg = Number.isFinite(Number(r["강도 점수(1~7)"])) ? Number(r["강도 점수(1~7)"]) : null;
+      const consistency = Number.isFinite(Number(r["일관성(0~100)"])) ? Number(r["일관성(0~100)"]) : null;
+      const count = normalized.filter(x=>dims.includes(x.dimension) && Number.isFinite(x.correctedScore)).length;
+      return {key,name,dims,count,avg,consistency,status:consistencyLabel(consistency)};
+    });
+
+    const conflictRows = objectRowsFromSheet(wb, "05_충돌축분석")
+      .filter(r => String(r["충돌축"] || "").trim());
+    const conflicts = conflictRows.map(r => ({
+      name:String(r["충돌축"] || ""),
+      left:String(r["왼쪽 기준"] || ""),
+      right:String(r["오른쪽 기준"] || ""),
+      leftScore:Number.isFinite(Number(r["왼쪽 보정점수"])) ? Number(r["왼쪽 보정점수"]) : null,
+      rightScore:Number.isFinite(Number(r["오른쪽 보정점수"])) ? Number(r["오른쪽 보정점수"]) : null,
+      leftCount:0,
+      rightCount:0,
+      status:String(r["판정"] || "데이터 부족"),
+      note:String(r["대표 문항/메모"] || "")
+    }));
+
+    const pairRows = objectRowsFromSheet(wb, "06_문항쌍검증")
+      .filter(r => String(r["pair_id"] || "").trim() || String(r["문항1 ID"] || "").trim());
+    const pairs = pairRows.map(r => ({
+      dimension:String(r["구간"] || ""),
+      relation:String(r["관계"] || ""),
+      id1:String(r["문항1 ID"] || ""),
+      statement1:String(r["문항1"] || ""),
+      score1:Number.isFinite(Number(r["보정점수1"])) ? Number(r["보정점수1"]) : null,
+      id2:String(r["문항2 ID"] || ""),
+      statement2:String(r["문항2"] || ""),
+      score2:Number.isFinite(Number(r["보정점수2"])) ? Number(r["보정점수2"]) : null,
+      diff:Number.isFinite(Number(r["차이"])) ? Number(r["차이"]) : null,
+      flag:String(r["검토 플래그"] || "")
+    })).filter(p => p.id1 || p.id2 || p.statement1 || p.statement2);
+
+    const forcedRows = objectRowsFromSheet(wb, "07_가까움멂검증")
+      .filter(r => String(r["set_id"] || "").trim());
+    const forced = forcedRows.map(r => {
+      const maxOpts = String(r["최고점 옵션"] || "").split("/").map(x=>x.trim()).filter(Boolean);
+      const minOpts = String(r["최저점 옵션"] || "").split("/").map(x=>x.trim()).filter(Boolean);
+      const closeMatchText = String(r["가까움 일치"] || "").toUpperCase();
+      const farMatchText = String(r["멂 일치"] || "").toUpperCase();
+      return {
+        setId:r["set_id"],
+        scores:{
+          A:numericScore(r["A 점수"]),
+          B:numericScore(r["B 점수"]),
+          C:numericScore(r["C 점수"])
+        },
+        closest:String(r["가까움"] || ""),
+        farthest:String(r["멂"] || ""),
+        maxOpts,
+        minOpts,
+        closestMatch:closeMatchText==="Y" ? true : (closeMatchText==="N" ? false : null),
+        farthestMatch:farMatchText==="Y" ? true : (farMatchText==="N" ? false : null),
+        reason:String(r["검토 사유"] || "")
+      };
+    });
+
+    const topRows = rowsFromSheet(wb, "08_TOP5_최종요약");
+    const cell = (r,c) => (topRows[r-1] && topRows[r-1][c-1] != null) ? String(topRows[r-1][c-1]).trim() : "";
+    const splitText = txt => String(txt || "").split(/\n|\/|,|·(?=\s)/).map(x=>x.trim()).filter(Boolean);
+
+    const maintainFromTop = [4,5,6,7,8].map(r=>cell(r,3)).filter(Boolean);
+    const shakyFromTop = [9,10,11,12,13].map(r=>cell(r,3)).filter(Boolean);
+
+    const guide = {
+      character:cell(16,2) || cell(16,3) || "",
+      consistentTop:maintainFromTop.map(x=>({dimension:x})),
+      shakyTop:shakyFromTop.map(x=>({dimension:x})),
+      conflictReview:[],
+      maintain:splitText(cell(17,2)).length ? splitText(cell(17,2)) : maintainFromTop,
+      fix:splitText(cell(18,2)).length ? splitText(cell(18,2)) : shakyFromTop.slice(0,3),
+      criteria:splitText(cell(19,2)),
+      recheckIds:splitText(cell(20,2)),
+      finalStatus:cell(21,2)
+    };
+
+    const dashRows = rowsFromSheet(wb, "00_분석대시보드");
+    const dashCell = (r,c) => (dashRows[r-1] && dashRows[r-1][c-1] != null) ? dashRows[r-1][c-1] : "";
+    const summary = {
+      validCount:Number.isFinite(Number(dashCell(4,1))) ? Number(dashCell(4,1)) : null,
+      completionRate:Number.isFinite(Number(dashCell(4,4))) ? Number(dashCell(4,4)) : null,
+      avgConsistency:Number.isFinite(Number(dashCell(4,7))) ? Number(dashCell(4,7)) : null,
+      reviewCount:Number.isFinite(Number(dashCell(4,10))) ? Number(dashCell(4,10)) : null
+    };
+
+    return {
+      sourceName,
+      normalized,
+      p1Sets:[],
+      dimensions,
+      coreAxes,
+      conflicts,
+      pairs,
+      forced,
+      guide,
+      summary,
+      workbook:wb
+    };
+  }
+
+  function analyzeAndRenderWorkbook(wb, sourceName) {
+    try {
+      const a = parseCompletedAnalysisWorkbook(wb, sourceName);
+      Object.assign(analysisState, a);
+      renderAnalysisDashboard(analysisState);
+      const meaningfulValues =
+        a.coreAxes.filter(x=>Number.isFinite(x.avg)).length +
+        a.dimensions.filter(x=>x.count>0 || Number.isFinite(x.avg)).length +
+        a.pairs.length +
+        a.forced.length;
+      if (!meaningfulValues) {
+        setAnalysisStatus(
+          `${sourceName}의 분석 양식 구조는 확인했지만 분석 값이 비어 있습니다.\nChatGPT가 기본양식에 분석 결과를 채워서 만든 XLSX인지 확인해 주세요.`,
+          "bad"
+        );
+        $("analysisDashboard")?.classList.add("hidden");
+        return;
+      }
+      setAnalysisStatus(`${sourceName} 분석 결과를 불러왔습니다.`, "good");
+      const dashboard = $("analysisDashboard");
+      if (dashboard) dashboard.scrollIntoView({behavior:"smooth", block:"start"});
+    } catch (err) {
+      setAnalysisStatus(`분석할 수 없습니다.\n${err?.message || err}`, "bad");
+      $("analysisDashboard")?.classList.add("hidden");
+    }
+  }
+
+  function readAnalysisFile(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const wb = XLSX.read(e.target.result, {type:"array"});
+        analyzeAndRenderWorkbook(wb, file.name);
+      } catch (err) {
+        setAnalysisStatus(`파일을 읽지 못했습니다.\n${err?.message || err}`, "bad");
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function analysisFileName() {
+    const base = (analysisState.sourceName || "SKCT_응답결과").replace(/\.(xlsx|xls)$/i,"").replace(/[\\/:*?"<>|]/g,"_");
+    const d = new Date();
+    const p = n => String(n).padStart(2,"0");
+    return `${base}_응답분석_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.xlsx`;
+  }
+
+  function buildAnalysisWorkbook(a) {
+    const wb = XLSX.utils.book_new();
+
+    const valid = a.normalized.filter(r=>Number.isFinite(r.rawScore)).length;
+    const total = a.normalized.length;
+    const validCons = a.dimensions.filter(d=>d.count>=2 && Number.isFinite(d.consistency));
+    const avgConsistency = validCons.length ? Math.round(mean(validCons.map(d=>d.consistency))) : "";
+
+    const summary = [
+      ["SKCT 심층검사 연습 응답분석","연습용 분석 / 공식 SKCT 점수 아님"],
+      ["원본 응답파일",a.sourceName],
+      ["전체 문장",total],
+      ["유효 응답",valid],
+      ["응답 완료율", total ? valid/total : ""],
+      ["평균 일관성",avgConsistency],
+      ["재확인 가치 수",validCons.filter(d=>d.shake==="재확인").length],
+      ["현재 응답 캐릭터",a.guide?.character || ""]
+    ];
+    const wsSummary = XLSX.utils.aoa_to_sheet(summary);
+    wsSummary["!cols"] = [{wch:24},{wch:70}];
+    XLSX.utils.book_append_sheet(wb, wsSummary, "분석요약");
+
+    const wsDim = XLSX.utils.json_to_sheet(a.dimensions.map(d=>({
+      "dimension":d.dimension,"유효 문항 수":d.count,"보정 평균":d.avg??"",
+      "가까움 횟수":d.closest,"멂 횟수":d.farthest,"평균절대편차":d.mad??"",
+      "일관성 점수":d.consistency??"","전반 강도":d.strength,"흔들림":d.shake,
+      "PART1 평균":d.part1Avg??"","PART2 평균":d.part2Avg??""
+    })));
+    wsDim["!cols"] = [{wch:24},{wch:12},{wch:12},{wch:12},{wch:12},{wch:16},{wch:14},{wch:14},{wch:12},{wch:12},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, wsDim, "가치별분석");
+
+    const wsCore = XLSX.utils.json_to_sheet(a.coreAxes.map(x=>({
+      "축":x.key,"가치":x.name,"포함 dimension":x.dims.join(" + "),"유효 문항":x.count,
+      "강도 점수(1~7)":x.avg??"","일관성(0~100)":x.consistency??"","상태":x.status
+    })));
+    wsCore["!cols"] = [{wch:7},{wch:24},{wch:44},{wch:12},{wch:16},{wch:18},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, wsCore, "핵심6축");
+
+    const wsConf = XLSX.utils.json_to_sheet(a.conflicts.map(c=>({
+      "충돌축":c.name,"왼쪽 기준":c.left,"오른쪽 기준":c.right,
+      "왼쪽 평균":c.leftScore??"","오른쪽 평균":c.rightScore??"",
+      "왼쪽 문항수":c.leftCount,"오른쪽 문항수":c.rightCount,"상태":c.status,"해석":c.note
+    })));
+    wsConf["!cols"] = [{wch:34},{wch:24},{wch:24},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:70}];
+    XLSX.utils.book_append_sheet(wb, wsConf, "충돌축분석");
+
+    const wsForced = XLSX.utils.json_to_sheet(a.forced.map(r=>({
+      "set_id":r.setId,"A 점수":r.scores.A??"","B 점수":r.scores.B??"","C 점수":r.scores.C??"",
+      "가까움":r.closest,"멂":r.farthest,"최고점 옵션":r.maxOpts.join("/"),"최저점 옵션":r.minOpts.join("/"),
+      "가까움 일치":r.closestMatch==null?"":(r.closestMatch?"Y":"N"),
+      "멂 일치":r.farthestMatch==null?"":(r.farthestMatch?"Y":"N"),"검토 사유":r.reason
+    })));
+    wsForced["!cols"] = [{wch:10},{wch:10},{wch:10},{wch:10},{wch:10},{wch:10},{wch:14},{wch:14},{wch:14},{wch:12},{wch:48}];
+    XLSX.utils.book_append_sheet(wb, wsForced, "가까움멂검증");
+
+    const wsPairs = XLSX.utils.json_to_sheet(a.pairs.map((p,i)=>({
+      "pair_id":i+1,"dimension":p.dimension,"관계":p.relation,
+      "문항1 ID":p.id1,"문항1":p.statement1,"보정점수1":p.score1,
+      "문항2 ID":p.id2,"문항2":p.statement2,"보정점수2":p.score2,
+      "차이":p.diff,"검토 플래그":p.flag
+    })));
+    wsPairs["!cols"] = [{wch:9},{wch:24},{wch:20},{wch:14},{wch:60},{wch:12},{wch:14},{wch:60},{wch:12},{wch:10},{wch:14}];
+    XLSX.utils.book_append_sheet(wb, wsPairs, "문항쌍검증");
+
+    const guideRows = [
+      ["구분","내용"],
+      ["현재 응답 캐릭터",a.guide?.character || ""],
+      ["유지하면 좋은 기준 TOP5",(a.guide?.maintain || []).join(" / ")],
+      ["먼저 고칠 기준 TOP3",(a.guide?.fix || []).join(" / ")],
+      ["판단 기준",(a.guide?.criteria || []).join("\n")],
+      ["다시 확인할 문항",(a.guide?.recheckIds || []).join(" / ")]
+    ];
+    const wsGuide = XLSX.utils.aoa_to_sheet(guideRows);
+    wsGuide["!cols"] = [{wch:30},{wch:100}];
+    XLSX.utils.book_append_sheet(wb, wsGuide, "최종연습가이드");
+
+    const wsNorm = XLSX.utils.json_to_sheet(a.normalized.map(r=>({
+      "row_id":r.rowId,"part":r.part,"source_id":r.sourceId,"option":r.option,
+      "statement":r.statement,"dimension":r.dimension,"polarity":r.polarity,
+      "raw_score":r.rawScore??"","corrected_score":r.correctedScore??"",
+      "closest_flag":r.closestFlag,"farthest_flag":r.farthestFlag,
+      "response_time_sec":r.responseTimeSec??"","completed":r.completed,"memo":r.memo
+    })));
+    wsNorm["!cols"] = [{wch:14},{wch:10},{wch:12},{wch:8},{wch:70},{wch:24},{wch:12},{wch:12},{wch:16},{wch:14},{wch:14},{wch:18},{wch:12},{wch:40}];
+    XLSX.utils.book_append_sheet(wb, wsNorm, "정규화데이터");
+
+    const rules = [
+      ["규칙","내용"],
+      ["역방향 보정","1~7 척도에서 8 - 원점수"],
+      ["일관성","같은 dimension의 보정점수 평균절대편차(MAD)를 100 - MAD×25로 연습용 환산"],
+      ["상태","85 이상 안정 / 70 이상 보통 / 70 미만 재확인"],
+      ["가까움/멂","PART1 최고점/최저점 옵션과 forced-choice 선택의 정합성 확인"],
+      ["문항쌍","보정점수 차이 ≤1 일관 / >1~2 재확인 / >2 우선검토"],
+      ["주의","실제 SKCT 비공개 채점 공식·합격선·합격 가능성을 의미하지 않음"]
+    ];
+    const wsRules = XLSX.utils.aoa_to_sheet(rules);
+    wsRules["!cols"] = [{wch:24},{wch:100}];
+    XLSX.utils.book_append_sheet(wb, wsRules, "분석규칙");
+
+    return wb;
+  }
+
+  function downloadAnalysisWorkbook() {
+    if (!analysisState.normalized.length) {
+      setAnalysisStatus("먼저 결과 Excel을 분석해 주세요.", "bad");
+      return;
+    }
+    const wb = buildAnalysisWorkbook(analysisState);
+    XLSX.writeFile(wb, analysisFileName(), {compression:true});
+  }
+
+  function switchAnalysisTab(name) {
+    document.querySelectorAll(".analysis-tab").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.analysisTab === name);
+    });
+    const map = {
+      overview:"analysisPanelOverview",
+      dimensions:"analysisPanelDimensions",
+      conflicts:"analysisPanelConflicts",
+      forced:"analysisPanelForced",
+      pairs:"analysisPanelPairs",
+      guide:"analysisPanelGuide"
+    };
+    Object.entries(map).forEach(([key,id]) => {
+      $(id)?.classList.toggle("active", key===name);
+    });
   }
 
   function loadFile(file) {
@@ -1258,6 +2424,8 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
     $("summaryBox").innerHTML = rows.map(([a,b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join("");
     refreshPromptTexts();
     setScreen("result");
+    $("analysisDashboard")?.classList.add("hidden");
+    setAnalysisStatus("ChatGPT가 SKCT 응답분석 기본양식에 분석 결과를 채워서 만든 XLSX를 업로드해 주세요.");
     window.scrollTo({top:0,behavior:"smooth"});
   }
 
@@ -1270,6 +2438,12 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
       startedAt:null, submittedAt:null, lastWorkbook:null, signature:""
     });
     $("fileInput").value = "";
+    if ($("analysisFileInput")) $("analysisFileInput").value = "";
+    $("analysisDashboard")?.classList.add("hidden");
+    setAnalysisStatus("분석할 결과를 선택해 주세요.");
+    Object.assign(analysisState, {
+      sourceName:"", normalized:[], p1Sets:[], dimensions:[], coreAxes:[], conflicts:[], pairs:[], forced:[], guide:null, workbook:null
+    });
     setScreen("upload");
   }
 
@@ -1321,6 +2495,13 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
   });
   $("copyQuestionPromptBtn")?.addEventListener("click", () => copyTextFrom("questionPrompt", "copyQuestionPromptBtn"));
   $("copyAnalysisPromptBtn")?.addEventListener("click", () => copyTextFrom("analysisPrompt", "copyAnalysisPromptBtn"));
+  $("analysisFileInput")?.addEventListener("change", e => {
+    const file = e.target.files && e.target.files[0];
+    if (file) readAnalysisFile(file);
+  });
+  document.querySelectorAll(".analysis-tab").forEach(btn => {
+    btn.addEventListener("click", () => switchAnalysisTab(btn.dataset.analysisTab));
+  });
   initAuth();
   refreshPromptTexts();
 
