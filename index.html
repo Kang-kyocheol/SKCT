@@ -25,6 +25,21 @@
     button,input{font:inherit}
     button{cursor:pointer}
     .hidden{display:none!important}
+    .locked-body{overflow:hidden}
+    .auth-gate{position:fixed;inset:0;z-index:1000;background:#f4f4f4;display:flex;align-items:center;justify-content:center;padding:20px}
+    .auth-card{width:min(460px,100%);background:#fff;border:1px solid #d8d8d8;padding:30px}
+    .auth-mark{display:inline-flex;align-items:center;justify-content:center;min-width:64px;height:30px;padding:0 10px;background:#ef1010;color:#fff;font-size:12px;font-weight:900;margin-bottom:18px}
+    .auth-card h1{font-size:26px;margin:0 0 8px}
+    .auth-card p{margin:0 0 20px;color:#666;font-size:14px;line-height:1.6}
+    .auth-label{display:block;font-size:13px;font-weight:900;margin-bottom:7px}
+    .auth-row{display:flex;gap:8px}
+    .auth-input{min-width:0;flex:1;height:46px;border:1px solid #bdbdbd;padding:0 12px;font-size:16px}
+    .auth-input:focus{outline:2px solid #ef1010;outline-offset:1px}
+    .auth-submit{height:46px;padding:0 18px;background:#171717;color:#fff;border:1px solid #171717;font-weight:900}
+    .auth-error{min-height:20px;margin-top:10px;color:#b91c1c;font-size:13px;font-weight:800}
+    .auth-note{margin-top:18px;padding-top:14px;border-top:1px solid #eee;color:#888;font-size:11px;line-height:1.55}
+    .template-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 15px;background:#fff;border:1px solid #777;color:#222;text-decoration:none;font-weight:900}
+    .template-btn:hover{border-color:#171717;background:#fafafa}
     .app{max-width:1180px;margin:0 auto;min-height:100vh;background:#fff}
     .brandbar{height:42px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:800;font-size:13px}
     .brandbar .small{font-weight:600;opacity:.9}
@@ -41,6 +56,23 @@
     .ghost{background:#fff;border:1px solid #bbb;color:#333;min-height:40px;padding:0 14px;font-weight:700}
     .notice{margin-top:18px;padding:14px;background:#fafafa;border-left:4px solid #555;font-size:14px;line-height:1.6}
     .load-error{margin-top:14px;color:#b91c1c;font-weight:700;white-space:pre-wrap}
+    .prompt-guide{margin:24px 0;border:1px solid #d8d8d8;background:#fff}
+    .prompt-guide-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid #e6e6e6;background:#fafafa}
+    .prompt-guide-head h2,.prompt-guide-head h3{margin:0 0 5px;font-size:18px}
+    .prompt-guide-head p{margin:0;color:#666;font-size:13px;line-height:1.55}
+    .prompt-step{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 9px;background:#171717;color:#fff;font-weight:900;font-size:13px;margin-right:10px}
+    .prompt-guide-body{padding:18px 20px}
+    .prompt-config{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+    .prompt-field{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800}
+    .prompt-field input{width:82px;height:40px;border:1px solid #bbb;padding:0 10px;font-size:16px}
+    .prompt-box{width:100%;min-height:260px;resize:vertical;border:1px solid #cfcfcf;background:#f8f8f8;padding:14px;font-size:13px;line-height:1.55;color:#333;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    .prompt-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .copy-btn{min-height:42px;padding:0 15px;background:#171717;border:1px solid #171717;color:#fff;font-weight:900}
+    .copy-btn.copied{background:#0b7a34;border-color:#0b7a34}
+    .prompt-note{font-size:12px;color:#777;line-height:1.5}
+    .flow-arrow{text-align:center;color:#999;font-size:22px;font-weight:900;margin:10px 0}
+    .result-prompt{margin-top:28px;text-align:left}
+    .result-prompt .prompt-box{min-height:320px}
     .exam-head{border:2px solid #222;margin:0 0 18px}
     .head-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:16px 18px}
     .head-main{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -114,10 +146,45 @@
       .hint{text-align:left;margin:0 0 10px}
       .footerbar{align-items:flex-start;flex-direction:column}
       .submit-btn{width:100%}
+      .prompt-guide-head{padding:15px}
+      .prompt-guide-body{padding:15px}
+      .prompt-field{width:100%;justify-content:space-between}
+      .prompt-field input{width:96px}
+      .copy-btn{width:100%}
+      .auth-row{flex-direction:column}
+      .auth-submit{width:100%}
+      .template-btn{width:100%}
     }
   </style>
 </head>
-<body>
+<body class="locked-body">
+<div id="authGate" class="auth-gate">
+  <form id="authForm" class="auth-card" autocomplete="off">
+    <div class="auth-mark">PRIVATE</div>
+    <h1>심층검사 연습 사이트</h1>
+    <p>접근 비밀번호를 입력해 주세요.</p>
+
+    <label class="auth-label" for="authPassword">비밀번호</label>
+    <div class="auth-row">
+      <input
+        id="authPassword"
+        class="auth-input"
+        type="password"
+        autocomplete="current-password"
+        placeholder="비밀번호 입력"
+        aria-describedby="authError"
+      />
+      <button class="auth-submit" type="submit">입장</button>
+    </div>
+    <div id="authError" class="auth-error" aria-live="polite"></div>
+
+    <div class="auth-note">
+      이 페이지는 GitHub Pages 기반의 정적 사이트입니다. 비밀번호 화면은 일반적인 접근 제한용이며,
+      서버 로그인과 같은 강한 보안 기능은 아닙니다.
+    </div>
+  </form>
+</div>
+
 <div class="app">
   <div class="brandbar">
     <div>심층검사 연습</div>
@@ -131,6 +198,42 @@
         <b>PART1_세트형</b>과 <b>PART2_단문형</b> 시트를 읽어 실제 시험처럼 진행합니다.
         모든 데이터는 브라우저 안에서만 처리되며 서버로 전송하지 않습니다.
       </p>
+      <div class="prompt-guide">
+        <div class="prompt-guide-head">
+          <div>
+            <h2><span class="prompt-step">1</span>연습 문항 만들기</h2>
+            <p>문항 Excel이 아직 없다면 아래 프롬프트를 ChatGPT에 붙여넣어 이 사이트용 Excel을 먼저 만드세요.</p>
+          </div>
+        </div>
+        <div class="prompt-guide-body">
+          <div class="prompt-config">
+            <label class="prompt-field">PART 1 세트 수
+              <input id="promptPart1Count" type="number" min="1" max="500" value="10" inputmode="numeric" />
+            </label>
+            <label class="prompt-field">PART 2 문항 수
+              <input id="promptPart2Count" type="number" min="1" max="1000" value="10" inputmode="numeric" />
+            </label>
+          </div>
+          <textarea id="questionPrompt" class="prompt-box" readonly aria-label="문항 생성 프롬프트"></textarea>
+          <div class="prompt-actions">
+            <span class="prompt-note">권장: 먼저 Excel 양식을 다운로드해 ChatGPT에 함께 첨부한 뒤 사용하세요.</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <a id="templateDownloadBtn" class="template-btn" href="./template.xlsx" download>Excel 양식 다운로드</a>
+              <button id="copyQuestionPromptBtn" class="copy-btn" type="button">문항 생성 프롬프트 복사</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="prompt-guide-head" style="border:1px solid #d8d8d8;background:#fafafa">
+        <div>
+          <h2><span class="prompt-step">2</span>만든 Excel로 시험 시작</h2>
+          <p>이미 문항 Excel이 있다면 바로 아래에서 업로드하면 됩니다.</p>
+        </div>
+      </div>
+
       <div class="upload-card">
         <div id="dropZone" class="drop">
           <strong>.xlsx 파일을 여기에 끌어놓거나 선택하세요</strong>
@@ -194,6 +297,23 @@
       <h2>제출이 완료되었습니다.</h2>
       <p>문항과 입력한 응답을 포함한 Excel 결과 파일을 저장할 수 있습니다.</p>
       <div id="summaryBox" class="summary-box"></div>
+
+      <div class="prompt-guide result-prompt">
+        <div class="prompt-guide-head">
+          <div>
+            <h3><span class="prompt-step">3</span>결과 분석하기</h3>
+            <p>방금 다운로드된 결과 Excel을 ChatGPT에 첨부한 뒤 아래 프롬프트를 그대로 붙여넣으세요.</p>
+          </div>
+        </div>
+        <div class="prompt-guide-body">
+          <textarea id="analysisPrompt" class="prompt-box" readonly aria-label="결과 분석 프롬프트"></textarea>
+          <div class="prompt-actions">
+            <span class="prompt-note">이 분석은 연습용 일관성 점검입니다. 실제 SKCT의 비공개 채점식이나 합격 여부를 추정하지 않도록 구성했습니다.</span>
+            <button id="copyAnalysisPromptBtn" class="copy-btn" type="button">결과 분석 프롬프트 복사</button>
+          </div>
+        </div>
+      </div>
+
       <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
         <button id="downloadAgainBtn" class="download-btn" type="button">결과 Excel 다시 다운로드</button>
         <button id="restartBtn" class="secondary-btn" type="button">처음으로</button>
@@ -221,6 +341,9 @@
   const PART1_PAGE_SIZE = 3;
   const PART2_PAGE_SIZE = 10;
   const SAVE_KEY = "skct_practice_state_v1";
+  const AUTH_KEY = "skct_practice_auth_v1";
+  const PASSWORD_SHA256 = "36b744e97913fc6bd37800e2e15837b289e2e2b5feb1272ae9390e99c0c29289";
+  const TEMPLATE_XLSX_URL = "./template.xlsx";
 
   const state = {
     fileName: "",
@@ -249,8 +372,222 @@
     }[ch]));
   }
 
+
+  async function sha256Hex(text) {
+    if (!window.crypto?.subtle) {
+      throw new Error("이 브라우저에서는 보안 해시 기능을 사용할 수 없습니다.");
+    }
+    const data = new TextEncoder().encode(text);
+    const digest = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(digest))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function unlockSite() {
+    $("authGate")?.classList.add("hidden");
+    document.body.classList.remove("locked-body");
+    try { sessionStorage.setItem(AUTH_KEY, "1"); } catch {}
+    setTimeout(() => $("fileInput")?.focus(), 0);
+  }
+
+  function lockSite() {
+    $("authGate")?.classList.remove("hidden");
+    document.body.classList.add("locked-body");
+    if ($("authPassword")) $("authPassword").value = "";
+    if ($("authError")) $("authError").textContent = "";
+    try { sessionStorage.removeItem(AUTH_KEY); } catch {}
+    setTimeout(() => $("authPassword")?.focus(), 0);
+  }
+
+  async function handleAuthSubmit(event) {
+    event.preventDefault();
+    const input = $("authPassword");
+    const error = $("authError");
+    const password = input?.value || "";
+    if (!password) {
+      if (error) error.textContent = "비밀번호를 입력해 주세요.";
+      input?.focus();
+      return;
+    }
+
+    try {
+      const hash = await sha256Hex(password);
+      if (hash === PASSWORD_SHA256) {
+        if (error) error.textContent = "";
+        unlockSite();
+      } else {
+        if (error) error.textContent = "비밀번호가 올바르지 않습니다.";
+        if (input) {
+          input.value = "";
+          input.focus();
+        }
+      }
+    } catch (err) {
+      if (error) error.textContent = err?.message || "인증 중 오류가 발생했습니다.";
+    }
+  }
+
+  function initAuth() {
+    let unlocked = false;
+    try { unlocked = sessionStorage.getItem(AUTH_KEY) === "1"; } catch {}
+    if (unlocked) unlockSite();
+    else lockSite();
+
+    $("authForm")?.addEventListener("submit", handleAuthSubmit);
+  }
+
   function normalizeHeader(s) {
     return String(s ?? "").trim().toLowerCase().replace(/\s+/g, "_");
+  }
+
+  function clampInt(value, min, max, fallback) {
+    const n = Math.round(Number(value));
+    return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
+  }
+
+  function buildQuestionPrompt() {
+    const p1 = clampInt($("promptPart1Count")?.value, 1, 500, 10);
+    const p2 = clampInt($("promptPart2Count")?.value, 1, 1000, 10);
+    if ($("promptPart1Count")) $("promptPart1Count").value = p1;
+    if ($("promptPart2Count")) $("promptPart2Count").value = p2;
+
+    return `첨부한 SKCT 심층검사 연습사이트용 Excel 입력 양식의 시트명·열 이름·구조를 그대로 유지해서 연습문항을 만들어줘.
+
+[생성 수량]
+- PART 1: ${p1}세트
+- PART 2: ${p2}문항
+
+[PART 1 작성 규칙]
+1. PART1_세트형 시트에 작성한다.
+2. 1세트는 A/B/C 총 3개의 독립적인 문장으로 구성한다.
+3. 각 문장은 시험 화면에서 1~6점으로 응답하고, 같은 세트 안에서 '가장 가까운 것' 1개와 '가장 먼 것' 1개를 고르는 형식임을 고려한다.
+4. 셋 중 하나만 노골적으로 좋아 보이거나 나빠 보이지 않도록 한다. 가능하면 서로 다른 가치가 충돌하도록 만든다.
+   예: 높은 목표 vs 현실성 / 주도성 vs 협업 / 지속 개선 vs 효율 / 책임감 vs 역할 경계 / 원칙 vs 유연성.
+5. 같은 의미의 반복문항과 역문항을 적절히 섞어서 응답 일관성을 연습할 수 있게 한다.
+6. statement_A/B/C에는 문항만 작성하고, dimension_A/B/C에는 아래 성향 중 가장 적절한 것을 넣는다.
+   자발성/주도성, 높은목표/SUPEX, 도전/끈기, 문제해결, 책임감/Ownership, 창의/개선,
+   학습/성장, 협업/팀워크, 사교성, 유연성, 분석/신중성, 현실성/안정추구, 수동성/안정추구, 정직/윤리, 기타
+7. polarity_A/B/C는 해당 dimension을 직접 나타내면 '정방향', 반대 성향을 나타내면 '역방향'으로 표기한다.
+8. active는 실제 출제할 ${p1}세트만 Y로 하고, 양식에 남아 있는 미사용 행은 N으로 바꾼다.
+9. memo에는 해당 세트가 어떤 가치 충돌 또는 일관성을 점검하는지 짧게 적는다.
+
+[PART 2 작성 규칙]
+1. PART2_단문형 시트에 총 ${p2}문항을 작성한다.
+2. 한 행에 하나의 완결된 문장을 작성하고, 1~6점으로 응답하는 단문형이다.
+3. 정방향과 역방향을 섞고, PART 1에서 다룬 핵심 가치가 다른 표현으로 다시 등장하도록 하여 교차 일관성을 연습할 수 있게 한다.
+4. dimension과 polarity를 정확히 표시한다.
+5. 실제 출제할 ${p2}문항만 active=Y로 하고 나머지 미사용 행은 N으로 한다.
+
+[문항 품질]
+- 특정 회사의 실제 비공개 문항을 복제하지 말고 새 문장으로 작성한다.
+- 지나치게 도덕적이거나 정답이 뻔한 문장은 줄인다.
+- 한 문장에는 가능한 한 하나의 판단 기준만 담는다.
+- 긍정문/부정문/역문항을 자연스럽게 섞는다.
+- 한국어 채용 인성검사 문체처럼 짧고 명확하게 작성한다.
+
+[시험설정]
+- part1_default_total_statements는 ${p1 * 3}으로 수정한다.
+- part2_default_total_items는 ${p2}로 수정한다.
+- 제한시간은 기존 양식 값을 유지한다.
+
+완성한 뒤 설명만 하지 말고, 실제로 사이트에 바로 업로드할 수 있는 .xlsx 파일로 만들어서 제공해줘.`;
+  }
+
+  function buildAnalysisPrompt() {
+    return `첨부한 SKCT 심층검사 연습사이트의 응답결과 Excel을 분석해줘.
+
+중요:
+- 실제 SKCT의 비공개 채점 공식, 합격선 또는 합격 가능성을 알고 있다고 가정하지 마.
+- 이 파일에 기록된 문항, dimension, polarity, PART1의 1~6점·가까움·멂, PART2의 1~6점 응답만 근거로 '연습용 응답 일관성'을 분석해줘.
+- 평가를 좋게 보이도록 답을 조작하는 방향보다, 내가 어떤 기준에서 흔들리는지를 찾는 데 집중해줘.
+
+[1. 데이터 처리]
+- PART1_응답과 PART2_응답을 모두 사용해.
+- polarity가 '역방향'인 1~6점 응답은 일관성 비교용으로 7-원점수 방식으로 역코딩해.
+- PART 1의 '가장 가까움/가장 멂'은 공식 점수로 간주하지 말고, 가치 우선순위를 보는 보조지표로만 사용해.
+- 미응답은 임의로 보정하지 말고 별도로 표시해.
+
+[2. 가치별 분석]
+다음 dimension별로 응답 경향을 정리해줘:
+자발성/주도성, 높은목표/SUPEX, 도전/끈기, 문제해결, 책임감/Ownership, 창의/개선,
+학습/성장, 협업/팀워크, 사교성, 유연성, 분석/신중성, 현실성/안정추구, 수동성/안정추구, 정직/윤리.
+
+각 dimension에 대해:
+- 유효 문항 수
+- 정/역방향 보정 평균
+- PART1 가까움 선택 횟수
+- PART1 멂 선택 횟수
+- 전반적인 강도
+- 응답의 흔들림 정도
+를 표로 보여줘.
+
+[3. 일관성 분석]
+특히 다음 충돌축을 찾아줘:
+- 높은 목표 vs 현실성
+- 도전 vs 안정 추구
+- 자발성/주도성 vs 지시 대기
+- 창의·지속 개선 vs 검증된 방식·효율
+- 직접 문제해결 vs 전문가 활용
+- Ownership vs 역할 경계
+- 개인 업무 책임 vs 팀 전체 성과
+- 소신 vs 관계 유지
+- 계획 준수 vs 유연성
+- 스스로 학습 vs 익숙한 업무 선호
+
+PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 비슷하거나 반대인 문항들을 직접 짝지어서 응답 차이를 보여줘.
+
+[4. 반드시 뽑아줄 것]
+- 가장 일관된 가치 TOP 5
+- 가장 흔들린 가치/충돌축 TOP 5
+- 서로 모순되거나 재확인이 필요한 실제 문항 번호와 문장
+- '가까움/멂' 선택과 1~6점 응답이 서로 어긋난 세트
+- 극단값(1 또는 6)이 반복되거나 갑자기 달라지는 패턴
+- PART1과 PART2에서 같은 가치에 다르게 반응한 사례
+
+[5. 최종 정리]
+마지막에는 아래 형식으로 간결하게 정리해줘.
+① 현재 응답 캐릭터를 한 문장으로 요약
+② 유지하면 좋은 기준 5개
+③ 다음 연습에서 가장 먼저 고칠 기준 3개
+④ 다음에 풀 때 기억할 '나의 판단 기준'을 5~7문장으로 작성
+⑤ 필요하면 다시 확인할 문항 번호 목록
+
+분석할 때 단순히 '높은 점수가 좋다'고 판단하지 말고, 응답 간 의미와 일관성을 중심으로 봐줘.`;
+  }
+
+  async function copyTextFrom(id, buttonId) {
+    const el = $(id);
+    const btn = $(buttonId);
+    if (!el || !btn) return;
+    const text = el.value || el.textContent || "";
+    let ok = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      }
+    } catch {}
+    if (!ok) {
+      try {
+        el.focus();
+        el.select();
+        ok = document.execCommand("copy");
+        el.setSelectionRange(0, 0);
+      } catch {}
+    }
+    const original = btn.textContent;
+    btn.textContent = ok ? "복사 완료" : "직접 선택해 복사해 주세요";
+    btn.classList.toggle("copied", ok);
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove("copied");
+    }, 1600);
+  }
+
+  function refreshPromptTexts() {
+    if ($("questionPrompt")) $("questionPrompt").value = buildQuestionPrompt();
+    if ($("analysisPrompt")) $("analysisPrompt").value = buildAnalysisPrompt();
   }
 
   function rowsFromSheet(wb, name) {
@@ -893,6 +1230,7 @@
       ["전체", allComplete() ? "모든 응답 완료" : "미응답 포함"]
     ];
     $("summaryBox").innerHTML = rows.map(([a,b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join("");
+    refreshPromptTexts();
     setScreen("result");
     window.scrollTo({top:0,behavior:"smooth"});
   }
@@ -945,6 +1283,20 @@
       $("loadError").style.color = "";
     }, 1800);
   });
+
+  ["promptPart1Count", "promptPart2Count"].forEach(id => {
+    const el = $(id);
+    if (el) el.addEventListener("input", refreshPromptTexts);
+  });
+
+  $("templateDownloadBtn")?.addEventListener("click", () => {
+    // GitHub Pages에서 index.html과 같은 폴더의 template.xlsx를 내려받습니다.
+    // 파일명이 다르면 TEMPLATE_XLSX_URL / href를 함께 수정하세요.
+  });
+  $("copyQuestionPromptBtn")?.addEventListener("click", () => copyTextFrom("questionPrompt", "copyQuestionPromptBtn"));
+  $("copyAnalysisPromptBtn")?.addEventListener("click", () => copyTextFrom("analysisPrompt", "copyAnalysisPromptBtn"));
+  initAuth();
+  refreshPromptTexts();
 
   window.addEventListener("beforeunload", () => {
     if (!$("examScreen").classList.contains("hidden")) saveProgress(false);
