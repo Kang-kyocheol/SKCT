@@ -89,7 +89,7 @@
     .hint{text-align:right;color:var(--red-dark);font-size:13px;font-weight:700;margin:-28px 0 10px}
     .set-card{border:1px solid #e2e2e2;margin-bottom:12px;background:#fff}
     .set-title{padding:10px 14px;font-size:14px;font-weight:900;background:#fffafa;border-bottom:1px solid #ededed}
-    .grid-head,.statement-row{display:grid;grid-template-columns:minmax(340px,1fr) repeat(8,44px);align-items:stretch}
+    .grid-head,.statement-row{display:grid;grid-template-columns:minmax(340px,1fr) repeat(9,44px);align-items:stretch}
     .grid-head{background:#1d1d1d;color:#fff;font-size:12px;font-weight:800}
     .grid-head>div{padding:8px 4px;text-align:center}
     .grid-head .qhead{text-align:left;padding-left:14px}
@@ -104,7 +104,7 @@
     .fc-btn{width:32px;height:30px;background:#fff;border:1px solid #cfcfcf;font-size:12px;font-weight:900;color:#666}
     .fc-btn.selected{border:2px solid var(--red);color:var(--red);background:#fff7f7}
     .part2-table{border:1px solid #ddd}
-    .p2-row{display:grid;grid-template-columns:46px minmax(360px,1fr) repeat(6,46px);min-height:56px;border-top:1px solid #eee;align-items:stretch}
+    .p2-row{display:grid;grid-template-columns:46px minmax(360px,1fr) repeat(7,46px);min-height:56px;border-top:1px solid #eee;align-items:stretch}
     .p2-row:first-child{border-top:none}
     .p2-no{display:flex;align-items:center;justify-content:center;color:#777;font-size:13px}
     .p2-statement{display:flex;align-items:center;padding:11px 14px;line-height:1.45;font-size:14px}
@@ -135,9 +135,9 @@
       .brandbar{padding:0 12px}
       .head-row{grid-template-columns:1fr}
       .head-actions{justify-content:flex-end}
-      .grid-head,.statement-row{grid-template-columns:minmax(230px,1fr) repeat(8,38px)}
+      .grid-head,.statement-row{grid-template-columns:minmax(230px,1fr) repeat(9,38px)}
       .choice-btn{width:28px;height:30px}
-      .p2-row{grid-template-columns:36px minmax(220px,1fr) repeat(6,38px)}
+      .p2-row{grid-template-columns:36px minmax(220px,1fr) repeat(7,38px)}
     }
     @media(max-width:650px){
       .exam-scroller{overflow-x:auto;padding-bottom:2px}
@@ -218,7 +218,7 @@
           <div class="prompt-actions">
             <span class="prompt-note">권장: 먼저 Excel 양식을 다운로드해 ChatGPT에 함께 첨부한 뒤 사용하세요.</span>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <a id="templateDownloadBtn" class="template-btn" href="./SKCT_심층검사_연습사이트_문항입력양식.xlsx" download>Excel 양식 다운로드</a>
+              <a id="templateDownloadBtn" class="template-btn" href="./template.xlsx" download>Excel 양식 다운로드</a>
               <button id="copyQuestionPromptBtn" class="copy-btn" type="button">문항 생성 프롬프트 복사</button>
             </div>
           </div>
@@ -247,6 +247,7 @@
           <button id="resetSavedBtn" class="ghost" type="button">저장된 연습 기록 초기화</button>
         </div>
         <div class="notice">
+          <b>완료 기준:</b> PART 1은 A/B/C 각 1~7점 + 세트별 <b>가까움 1개</b> + <b>멂 1개</b>까지 모두 선택해야 완료입니다.<br/>
           기본 화면 구성: PART 1은 한 페이지에 3세트, PART 2는 한 페이지에 10문항입니다.
           제한시간은 Excel의 <b>시험설정</b> 시트 값을 우선 사용하며, 값이 없으면 PART 1 45분 / PART 2 25분을 적용합니다.
         </div>
@@ -275,13 +276,13 @@
 
       <div id="part1Area">
         <div class="part-title">PART1. 세트형</div>
-        <div class="hint">응답 1~6점 + 세트별 가까움/멂을 모두 선택해 주세요.</div>
+        <div class="hint">응답 1~7점 + 세트별 가까움/멂을 모두 선택해 주세요.</div>
         <div id="part1Container" class="exam-scroller"></div>
       </div>
 
       <div id="part2Area" class="hidden">
         <div class="part-title">PART2. 단문형</div>
-        <div class="hint">각 문항에 1~6점으로 응답해 주세요.</div>
+        <div class="hint">각 문항에 1~7점으로 응답해 주세요.</div>
         <div class="exam-scroller">
           <div id="part2Container" class="part2-table"></div>
         </div>
@@ -289,7 +290,7 @@
 
       <div class="footerbar">
         <div id="pageStatus" class="status">응답을 선택해 주세요.</div>
-        <button id="submitBtn" class="submit-btn hidden" type="button">최종 제출 및 Excel 다운로드</button>
+        <button id="submitBtn" class="submit-btn hidden" type="button">최종 제출 · 결과 Excel 다운로드</button>
       </div>
     </section>
 
@@ -461,7 +462,7 @@
 [PART 1 작성 규칙]
 1. PART1_세트형 시트에 작성한다.
 2. 1세트는 A/B/C 총 3개의 독립적인 문장으로 구성한다.
-3. 각 문장은 시험 화면에서 1~6점으로 응답하고, 같은 세트 안에서 '가장 가까운 것' 1개와 '가장 먼 것' 1개를 고르는 형식임을 고려한다.
+3. 각 문장은 시험 화면에서 1~7점으로 응답하고, 같은 세트 안에서 '가장 가까운 것' 1개와 '가장 먼 것' 1개를 고르는 형식임을 고려한다.
 4. 셋 중 하나만 노골적으로 좋아 보이거나 나빠 보이지 않도록 한다. 가능하면 서로 다른 가치가 충돌하도록 만든다.
    예: 높은 목표 vs 현실성 / 주도성 vs 협업 / 지속 개선 vs 효율 / 책임감 vs 역할 경계 / 원칙 vs 유연성.
 5. 같은 의미의 반복문항과 역문항을 적절히 섞어서 응답 일관성을 연습할 수 있게 한다.
@@ -474,7 +475,7 @@
 
 [PART 2 작성 규칙]
 1. PART2_단문형 시트에 총 ${p2}문항을 작성한다.
-2. 한 행에 하나의 완결된 문장을 작성하고, 1~6점으로 응답하는 단문형이다.
+2. 한 행에 하나의 완결된 문장을 작성하고, 1~7점으로 응답하는 단문형이다.
 3. 정방향과 역방향을 섞고, PART 1에서 다룬 핵심 가치가 다른 표현으로 다시 등장하도록 하여 교차 일관성을 연습할 수 있게 한다.
 4. dimension과 polarity를 정확히 표시한다.
 5. 실제 출제할 ${p2}문항만 active=Y로 하고 나머지 미사용 행은 N으로 한다.
@@ -499,12 +500,12 @@
 
 중요:
 - 실제 SKCT의 비공개 채점 공식, 합격선 또는 합격 가능성을 알고 있다고 가정하지 마.
-- 이 파일에 기록된 문항, dimension, polarity, PART1의 1~6점·가까움·멂, PART2의 1~6점 응답만 근거로 '연습용 응답 일관성'을 분석해줘.
+- 이 파일에 기록된 문항, dimension, polarity, PART1의 1~7점·가까움·멂, PART2의 1~7점 응답만 근거로 '연습용 응답 일관성'을 분석해줘.
 - 평가를 좋게 보이도록 답을 조작하는 방향보다, 내가 어떤 기준에서 흔들리는지를 찾는 데 집중해줘.
 
 [1. 데이터 처리]
 - PART1_응답과 PART2_응답을 모두 사용해.
-- polarity가 '역방향'인 1~6점 응답은 일관성 비교용으로 7-원점수 방식으로 역코딩해.
+- polarity가 '역방향'인 1~7점 응답은 일관성 비교용으로 8-원점수 방식으로 역코딩해.
 - PART 1의 '가장 가까움/가장 멂'은 공식 점수로 간주하지 말고, 가치 우선순위를 보는 보조지표로만 사용해.
 - 미응답은 임의로 보정하지 말고 별도로 표시해.
 
@@ -541,7 +542,7 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
 - 가장 일관된 가치 TOP 5
 - 가장 흔들린 가치/충돌축 TOP 5
 - 서로 모순되거나 재확인이 필요한 실제 문항 번호와 문장
-- '가까움/멂' 선택과 1~6점 응답이 서로 어긋난 세트
+- '가까움/멂' 선택과 1~7점 응답이 서로 어긋난 세트
 - 극단값(1 또는 6)이 반복되거나 갑자기 달라지는 패턴
 - PART1과 PART2에서 같은 가치에 다르게 반응한 사례
 
@@ -812,7 +813,7 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
   function part1Completed(set) {
     const a = state.answers1[String(set.set_id)];
     return !!a &&
-      [a.A,a.B,a.C].every(v => Number(v) >= 1 && Number(v) <= 6) &&
+      [a.A,a.B,a.C].every(v => Number(v) >= 1 && Number(v) <= 7) &&
       ["A","B","C"].includes(a.closest) &&
       ["A","B","C"].includes(a.farthest) &&
       a.closest !== a.farthest;
@@ -820,7 +821,7 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
 
   function part2Completed(item) {
     const a = state.answers2[String(item.item_id)];
-    return !!a && Number(a.score) >= 1 && Number(a.score) <= 6;
+    return !!a && Number(a.score) >= 1 && Number(a.score) <= 7;
   }
 
   function currentPart1Slice() {
@@ -836,6 +837,23 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
   function currentPageComplete() {
     if (state.part === 1) return currentPart1Slice().every(part1Completed);
     return currentPart2Slice().every(part2Completed);
+  }
+
+  function part1MissingParts(set) {
+    const a = state.answers1[String(set.set_id)] || {};
+    const missing = [];
+    if (!(Number(a.A) >= 1 && Number(a.A) <= 7)) missing.push("A 점수");
+    if (!(Number(a.B) >= 1 && Number(a.B) <= 7)) missing.push("B 점수");
+    if (!(Number(a.C) >= 1 && Number(a.C) <= 7)) missing.push("C 점수");
+    if (!["A","B","C"].includes(a.closest)) missing.push("가까움");
+    if (!["A","B","C"].includes(a.farthest)) missing.push("멂");
+    if (a.closest && a.farthest && a.closest === a.farthest) missing.push("가까움/멂 중복");
+    return missing;
+  }
+
+  function part2Missing(item) {
+    const a = state.answers2[String(item.item_id)] || {};
+    return !(Number(a.score) >= 1 && Number(a.score) <= 7);
   }
 
   function allComplete() {
@@ -897,13 +915,21 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
     if (complete) {
       el.textContent = "현재 페이지의 모든 응답이 완료되었습니다.";
       el.className = "status good";
-    } else {
-      let missing = 0;
-      if (state.part === 1) missing = currentPart1Slice().filter(x => !part1Completed(x)).length;
-      else missing = currentPart2Slice().filter(x => !part2Completed(x)).length;
-      el.textContent = `현재 페이지에 미완료 ${missing}${state.part===1 ? "세트" : "문항"}가 있습니다.`;
-      el.className = "status bad";
+      return;
     }
+    if (state.part === 1) {
+      const details = currentPart1Slice()
+        .map(set => ({ id: set.set_id, missing: part1MissingParts(set) }))
+        .filter(x => x.missing.length)
+        .map(x => `세트 ${x.id}: ${x.missing.join(", ")}`);
+      el.textContent = `미완료 — ${details.join(" / ")}`;
+    } else {
+      const ids = currentPart2Slice()
+        .filter(item => part2Missing(item))
+        .map(item => item.item_id);
+      el.textContent = `미완료 문항: ${ids.join(", ")}`;
+    }
+    el.className = "status bad";
   }
 
   function renderPart1() {
@@ -916,13 +942,13 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
         <div class="set-title">세트 ${esc(set.set_id)}</div>
         <div class="grid-head">
           <div class="qhead">문항</div>
-          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
           <div>가까움</div><div>멂</div>
         </div>
         ${["A","B","C"].map(letter => `
           <div class="statement-row">
             <div class="statement"><span class="letter">${letter}</span><span>${esc(set[letter])}</span></div>
-            ${[1,2,3,4,5,6].map(score => `
+            ${[1,2,3,4,5,6,7].map(score => `
               <div class="choice-cell">
                 <button type="button" class="choice-btn ${Number(ans[letter])===score ? "selected":""}"
                   data-kind="score1" data-set="${esc(set.set_id)}" data-letter="${letter}" data-score="${score}">${score}</button>
@@ -972,7 +998,7 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
       <div class="p2-row">
         <div class="p2-no">${esc(item.item_id)}</div>
         <div class="p2-statement">${esc(item.statement)}</div>
-        ${[1,2,3,4,5,6].map(score => `
+        ${[1,2,3,4,5,6,7].map(score => `
           <div class="p2-cell">
             <button type="button" class="p2-btn ${Number(ans.score)===score ? "selected":""}"
               data-item="${esc(item.item_id)}" data-score="${score}">${score}</button>
@@ -993,7 +1019,7 @@ PART 1 내부, PART 2 내부, PART 1 ↔ PART 2 사이에서 서로 의미가 �
 
   function moveNext() {
     if (!currentPageComplete()) {
-      showModal("미완료 응답", "현재 페이지의 모든 응답을 완료한 뒤 다음으로 이동할 수 있습니다.", null, false);
+      showModal("미완료 응답", "현재 페이지의 점수와 PART 1의 가까움/멂 선택을 모두 완료한 뒤 다음으로 이동할 수 있습니다. 화면 아래의 미완료 안내에서 빠진 항목을 확인해 주세요.", null, false);
       return;
     }
 
